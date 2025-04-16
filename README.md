@@ -1,4 +1,5 @@
 # Introduction
+![License](https://img.shields.io/github/license/Bodysbobb/GTAPViz-R-GTAPuser)
 
 This manual is designed for GTAP users. If you are looking for a comprehensive vignette, please see [`GTAPViz`](https://bodysbobb.github.io/GTAPViz/).
 

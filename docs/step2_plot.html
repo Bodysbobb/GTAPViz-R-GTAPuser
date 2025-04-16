@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Step 2: Plot Configurations</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="mystyle.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GTAPViz Help</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="step1_setup.html">1.Project Setup</a>
+</li>
+<li>
+  <a href="step2_plot.html">2.Plotting</a>
+</li>
+<li>
+  <a href="step3_table.html">3.Table</a>
+</li>
+<li>
+  <a href="FAQs.html">FAQs</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r">
+    <span class="fas fa-robot"></span>
+     
+    ChatGPT GTAPViz-R
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Step 2: Plot Configurations</h1>
+
+</div>
+
+
+<p>This manual provides an explanation of the file
+<code>2.PlotGens.R</code></p>
+<div class="info-box">
+<strong>❗ Important:</strong>
+<ul style="margin-top: 8px; padding-left: 20px;">
+<li>
+You must run <code>1.ProjectSetup</code> with <code>plot_data &lt;-
+TRUE</code> before running this script.
+</li>
+<li>
+You can simply copy and paste any plot code from this manuscript and
+replace the original code in <code>2.PlotGens.R</code>.
+</li>
+</ul>
+</div>
+<p>This manual provides an explanation of the file
+<code>2.PlotGens.R</code></p>
+<p>If you are unsure, please refer to: <a
+href="https://pattawee.shinyapps.io/gtapviz-advanced-plot-configs/">Plot
+Catalogs</a></p>
+<p>You may define a custom output folder to create separate directories
+for each plot.</p>
+<pre class="r"><code># Define new output location (or leave it as deafult)
+output.folder &lt;- output.folder</code></pre>
+<div id="input-data" class="section level1 unnumbered">
+<h1 class="unnumbered">Input Data</h1>
+<p>Define the dataframe to be plotted using either
+<code>sl4.plot.data</code> or <code>har.plot.data</code>,<br />
+obtained by running <code>1.ProjectSetup.R</code> with
+<code>plot_data = TRUE</code>.</p>
+<p>Depending on your data extraction method, you must assign the
+<code>dataframe</code><br />
+to be plotted from the corresponding data list.</p>
+<details>
+<summary class="toggle-summary">
+🔍 Extracting Data Frames
+</summary>
+<div class="tip-box">
+<p><strong>All plot functions require a data frame as an input, so you
+must unlist the data structure before using it.</strong></p>
+<p>This an example of how to extract the dataframe from the data
+list:</p>
+<pre class="r"><code>comparison_plot_data &lt;- sl4.plot.data[[&quot;REG&quot;]]     
+detail_plot_data &lt;- sl4.plot.data[[&quot;COMM*REG&quot;]]     
+stack_plot_data &lt;- har.plot.data[[&quot;A&quot;]]</code></pre>
+<p>If you used the data extraction method
+<code>group_data_by_dims</code>, you may need to define the plot data as
+follows:</p>
+<pre class="r"><code>plot_data &lt;- sl4.plot.data[[&quot;Sector&quot;]][[&quot;REG&quot;]]</code></pre>
+</div>
+</details>
+</div>
+<div id="plot-setup" class="section level1 unnumbered">
+<h1 class="unnumbered">Plot Setup</h1>
+<p>Do not forget to change export parameters to TRUE!</p>
+<ul>
+<li><p><code>export_picture_c = TRUE</code></p></li>
+<li><p><code>export_as_pdf_c = "merged" or TRUE</code> (merged will
+combine all plots into one PDF file)</p></li>
+</ul>
+<hr />
+<p style="color:#8B0000; font-size:2.5rem; text-align:center;">
+<strong>Time to copy and paste code to your R script!</strong>
+</p>
+</div>
+<div id="comparison-plot" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Comparison Plot</h1>
+<details>
+<summary class="toggle-summary">
+💻 Comparison Plot Codes
+</summary>
+<!-- START: Comparison Plot Filter UI -->
+<style>
+  label { font-weight: bold; }
+  select { font-size: 16px; margin-bottom: 20px; padding: 5px 10px; width: 300px;}
+  pre { background-color: #f4f4f4; padding: 15px; border-left: 5px solid #1C3E5D; overflow-x: auto; }
+  .code-box { display: none; }
+</style>
+
+<label for="plotFilterComparison">Choose Codes:</label>
+<select id="plotFilterComparison">
+  <option value="comparison">Default</option>
+  <option value="macro">GTAP Macro Plot</option>
+  <option value="advanced">Advanced Comparison Plot</option>
+</select>
+
+<div class="code-group-comparison">
+
+<div id="comparison" class="code-box">
+<p>This function is suitable for one-dimensional data such as <code>qgdp</code>, <code>u</code>, <code>EV</code>, or <code>qpriv</code>, allowing comparison of effects across regions (e.g., <code>REG</code>).</p>
+
+<pre><code>
+# For help function use: ?comparison_plot
+comparison.data <- sl4.plot.data[["REG"]]   # Replace with your actual dataframe name
+
+default_compare.plot <- comparison_plot(  # ! Do not change this line
+  data                      = comparison.data,
+  x_axis_from               = "Region",         # Column used for the x-axis
+  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  split_by                  = "Variable",       # Column(s) used to split data into separate plots
+  panel_var                 = "Experiment",     # Column used for paneling (faceting)
+  invert_axis               = FALSE,            # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description   = FALSE,            # Use description as variable name
+  add_var_info              = FALSE,            # Add variable code in parentheses
+  export_picture            = TRUE,             # Export as image
+  export_as_pdf             = "merged",         # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+  
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly
+  export_config = create_export_config(
+    width  = 28,
+    height = 15
+  ),
+  
+  # Some Plot Style Configurations
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "dynamic",                         # dynamic allows use of {Description}
+      text = "Impacts on {Description}",
+      sep  = ""
+    ),
+    all_font_size = 1,
+    panel_rows    = 1,
+    panel_cols    = NULL,
+    color_tone    = "gtap"
+  )
+)
+</code></pre>
+</div>
+
+    
+<div id="macro" class="code-box"> 
+<p>This function is suitable for global impacts (i.e., no dimensions); it uses data from the <code>Macros</code> header in the <code>sl4</code> solution file.</p>
+
+<pre><code>
+# For help function use: ?comparison_plot
+comparison.data <- GTAPMacro   # Replace with your actual dataframe name
+
+default_compare.plot <- comparison_plot(  # ! Do not change this line
+  data                      = comparison.data,
+  x_axis_from               = "Variable",       # Column used for the x-axis
+  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  split_by                  = "Variable",       # Column(s) used to split data into separate plots
+  panel_var                 = "Experiment",     # Column used for paneling (faceting)
+  invert_axis              = TRUE,             # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description   = FALSE,            # Use description as variable name
+  add_var_info              = FALSE,            # Add variable code in parentheses
+  export_picture            = TRUE,             # Export as image
+  export_as_pdf             = "merged",         # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly  
+  export_config = create_export_config(
+    width  = 28,
+    height = 35
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "full",                            # Full title with static text
+      text = "Global Economic Impacts",
+      sep  = ""
+    ),
+    all_font_size = 1,
+    panel_rows    = 1,
+    panel_cols    = NULL,
+    color_tone    = "grey_mono"     # Add "_mono" to use a single color for all bars
+  )
+)
+  </code></pre>
+  </div>
+    
+
+
+<div id="advanced" class="code-box">
+<p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
+
+<pre><code>
+# For help function use: ?comparison_plot
+comparison.data <- your_dataframe  # Replace with your actual dataframe name
+
+adv.compare.plot <- comparison_plot(
+  data = comparison.data,
+  x_axis_from             = "Region",
+  filter_var              = NULL,
+  split_by                = NULL,
+  panel_var               = "Experiment",
+  variable_col            = "Variable",
+  unit_col                = "Unit",
+  desc_col                = "Description",
+  invert_axis            = FALSE,
+  separate_figure         = FALSE,
+  var_name_by_description = FALSE,
+  add_var_info            = FALSE,
+  export_picture          = FALSE,
+  export_as_pdf           = FALSE,
+  output_path             = "/your/path",
+  
+  # Output Configurations
+  export_config           = create_export_config(
+    width = NULL,
+    height = NULL,
+    dpi = 300,
+    bg = "white",
+    limitsize = FALSE
+  )
+  
+  # All Plot Configurations
+  plot_style_config = create_plot_style(
+    
+    # Title settings
+    show_title = TRUE,
+    title_face = "bold",
+    title_size = 20,
+    title_hjust = 0.5,
+    add_unit_to_title = TRUE,
+    title_margin = c(10, 0, 10, 0), #c(top, right, bottom, left)
+    
+    title_format = create_title_format(
+      type = "standard", #option: standard (default), prefix, suffix, full, dynamic
+      text = "",
+      sep = ""
+    ),
+    
+    # X-Axis settings
+    show_x_axis_title = TRUE,
+    x_axis_title_face = "bold",
+    x_axis_title_size = 16,
+    x_axis_title_margin = c(25, 25, 0, 0), #c(top, right, bottom, left)
+    show_x_axis_labels = TRUE,
+    x_axis_text_face = "plain",
+    x_axis_text_size = 14,
+    x_axis_text_angle = 0,
+    x_axis_text_hjust = 0,
+    x_axis_description = "",
+    
+    # Y-Axis settings
+    show_y_axis_title = TRUE,
+    y_axis_title_face = "bold",
+    y_axis_title_size = 16,
+    y_axis_title_margin = c(25, 25, 0, 0), #c(top, right, bottom, left)
+    show_y_axis_labels = TRUE,
+    y_axis_text_face = "plain",
+    y_axis_text_size = 14,
+    y_axis_text_angle = 0,
+    y_axis_text_hjust = 0,
+    y_axis_description = "",
+    show_axis_titles_on_all_facets = TRUE,
+    
+    # Value Labels
+    show_value_labels = TRUE,
+    value_label_face = "plain",
+    value_label_size = 5,
+    value_label_position = "above",
+    value_label_decimal_places = 2,
+    
+    # Legend
+    show_legend = FALSE,
+    show_legend_title = FALSE,
+    legend_position = "bottom",
+    legend_title_face = "bold",
+    legend_text_face = "plain",
+    legend_text_size = 14,
+    
+    # Panel Strip
+    strip_face = "bold",
+    strip_text_size = 16,
+    strip_background = "lightgrey",
+    strip_text_margin = c(10, 0, 10, 0), #c(top, right, bottom, left)
+    
+    # Panel Layout
+    panel_spacing = 2,
+    panel_rows = NULL,
+    panel_cols = NULL,
+    theme = NULL,
+    
+    # Colors and Grid 
+    color_tone = NULL,
+    color_palette_type = "qualitative", #option: qualitative, sequential, diverging
+    positive_color = "#2E8B57",
+    negative_color = "#CD5C5C",
+    background_color = "white",
+    grid_color = "grey90",
+    show_grid_major_x = FALSE,
+    show_grid_major_y = FALSE,
+    show_grid_minor_x = FALSE,
+    show_grid_minor_y = FALSE,
+    
+    # Zero Line
+    show_zero_line = TRUE,
+    zero_line_type = "dashed",
+    zero_line_color = "black",
+    zero_line_size = 0.5,
+    zero_line_position = 0,
+    
+    # Bar Chart
+    bar_width = 0.9,
+    bar_spacing = 0.9,
+    
+    # Scale Settings
+    scale_limit = NULL,
+    scale_increment = NULL,
+    
+    # Scale Expansion
+    expansion_y_mult = c(0.05, 0.1),
+    expansion_x_mult = c(0.05, 0.05),
+    
+    # Font Size Control
+    all_font_size = 1,
+    
+    # Data Sorting
+    sort_data_by_value = FALSE,
+    
+    # Plot Margin
+    plot.margin = c(10, 25, 10, 10) #c(top, right, bottom, left)
+  )
+)
+</code></pre>
+</div>
+
+
+</div>
+
+<script>
+  const selectComparison = document.getElementById("plotFilterComparison");
+  const boxesComparison = document.querySelectorAll(".code-group-comparison .code-box");
+
+  function showComparison() {
+    boxesComparison.forEach(box => box.style.display = "none");
+    const selected = selectComparison.value;
+    const box = document.getElementById(selected);
+    if (box) box.style.display = "block";
+  }
+
+  selectComparison.addEventListener("change", showComparison);
+  showComparison();
+</script>
+<!-- END -->
+</details>
+<p><br></p>
+</div>
+<div id="detail-plot" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Detail Plot</h1>
+<details>
+<summary class="toggle-summary">
+💻 Detail Plot Codes
+</summary>
+<!-- START: Detail Plot Filter UI -->
+<style>
+  label { font-weight: bold; }
+  select { font-size: 16px; margin-bottom: 20px; padding: 5px 10px; width: 300px; }
+  pre { background-color: #f4f4f4; padding: 15px; border-left: 5px solid #1C3E5D; overflow-x: auto; }
+  .code-box { display: none; }
+</style>
+
+<label for="plotFilterDetail">Choose Codes:</label>
+<select id="plotFilterDetail">
+  <option value="default_detail">Default</option>
+  <option value="oned_detail">One dimensional data</option>
+  <option value="twod_detail">Two dimensional data</option>
+  <option value="threed_detail">Three dimensional data</option>
+  <option value="top_impact_detail">Top Impact Filter</option>
+  <option value="advanced_detail">Advanced Detail Plot</option>
+</select>
+
+<div class="code-group-detail">
+
+<div id="default_detail" class="code-box">
+<p>This function is suitable for any dimensional data, with a focus on detailed overviews rather than comparisons across a few observations—such as plotting <code>qgdp</code> for all countries.</p>
+
+<p><strong>Note:</strong> <code>"REG"</code> has been renamed to <code>"Region"</code>, and <code>"COMM"</code> to <code>"Commodity"</code>.</p>
+
+<pre><code>
+# For help function use: ?detail_plot
+detail.data <- sl4.plot.data[["COMM*REG"]]  # Replace with your actual dataframe
+
+default_detail <- detail_plot(
+  data                      = detail.data,
+  x_axis_from               = "Commodity",      # Column used for the x-axis
+  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
+  panel_var                 = "Experiment",     # Column used for paneling (faceting)
+  top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
+  invert_axis              = TRUE,             # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
+  add_var_info              = FALSE,            # Add variable code in parentheses (e.g., Real GDP (qgdp))
+  export_picture            = FALSE,            # Export the plots as image files
+  export_as_pdf             = FALSE,            # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+  
+    # Output Configurations
+    ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
+    export_config = create_export_config(  
+    width  = 23,              # Width of the output plot in inches
+    height = 9                # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
+      text = "Change in",
+      sep  = " - "
+    ),
+    positive_color = "#2E8B57",  # Color for positive values
+    negative_color = "#CD5C5C",  # Color for negative values
+    all_font_size  = 1.1,        # Scale for all font sizes in the plot 
+    panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation
+  )
+)
+</code></pre>
+  </div>
+
+<div id="oned_detail" class="code-box">
+  <p>This R script is designed for one-dimensional data plot like <code>qgdp</code>, <code>EV</code>, etc. across all regions</p>
+  
+  <pre><code>
+# For help function use: ?detail_plot
+detail.data <- sl4.plot.data[["REG"]]   # Dataframe with one-dimensional data
+
+oned_detail <- detail_plot(
+  data                      = detail.data,
+  x_axis_from               = "Region",         # Column used for the x-axis
+  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  split_by                  = "Variable",       # Column(s) used to split data into separate plots
+  panel_var                 = "Experiment",     # Column used for paneling (faceting)
+  top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel
+  invert_axis              = TRUE,             # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
+  add_var_info              = FALSE,            # Add variable code in parentheses (e.g., Real GDP (qgdp))
+  export_picture            = TRUE,             # Export the plots as image files
+  export_as_pdf             = "merged",         # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
+  export_config = create_export_config(
+    width  = 35,              # Width of the output plot in inches
+    height = 25               # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
+      text = "Change in",
+      sep  = " - "
+    ),
+    positive_color = "#2E8B57",  # Color for positive values
+    negative_color = "#CD5C5C",  # Color for negative values
+    all_font_size  = 1.1,        # Scale for all font sizes in the plot 
+    panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+  )
+)
+</code></pre>
+  </div>
+  
+<div id="twod_detail" class="code-box">
+  <p>This R script is designed for two-dimensional data plot like <code>qo</code>, <code>qxw</code>, <code>qmw</code>, etc., impacts across all regions (<code>"REG"</code>).</p>  
+
+<pre><code>
+# For help function use: ?detail_plot
+detail.data <- sl4.plot.data[["COMM*REG"]]   # Dataframe with two-dimensional data
+
+twod_detail <- detail_plot(
+  data                      = detail.data,
+  x_axis_from               = "Commodity",     # Column used for the x-axis
+  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  split_by                  = "Variable",      # Column(s) used to split data into separate plots
+  panel_var                 = "Experiment",    # Column used for paneling (faceting)
+  top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
+  invert_axis              = TRUE,            # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,            # Use the description as the variable name
+  add_var_info              = FALSE,           # Add variable code in parentheses
+  export_picture            = FALSE,           # Export the plots as image files
+  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly    
+  export_config = create_export_config(
+    width  = 45,             # Width of the output plot in inches
+    height = 15              # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "prefix",       # option: standard (default), prefix, suffix, full, dynamic
+      text = "Change in",
+      sep  = " - "
+    ),
+    positive_color = "#2E8B57",  # Color for positive values
+    negative_color = "#CD5C5C",  # Color for negative values
+    all_font_size  = 1.1,        # Scale for all font sizes in the plot 
+    panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+  )
+)
+</code></pre>
+  </div>
+  
+<div id="threed_detail" class="code-box">
+  <p>This R script is designed for three-dimensional data plot like <code>qxs</code>. This example assumes that you chose to extract <code>qxs</code> during <strong>1.ProjectSetup</strong></p>
+
+<p><strong>Note:</strong> This code can be applied to any dimensional data by adding more columns to <code>split_by</code>.</p>
+
+  <pre><code>
+# For help function use: ?detail_plot
+detail.data <- bilateral_data[["qxs"]]   # Dataframe with three-dimensional data
+
+threed_detail <- detail_plot(
+  data                      = detail.data,
+  x_axis_from               = "Commodity",     # Column used for the x-axis
+  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  split_by                  = c("Source", "Destination"),  # Split plots by Source & Destination
+  panel_var                 = "Experiment",    # Column used for paneling (faceting)
+  top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
+  invert_axis              = TRUE,            # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,            # Use the description as the variable name
+  add_var_info              = FALSE,           # Add variable code in parentheses
+  export_picture            = FALSE,           # Export the plots as image files
+  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly        
+  export_config = create_export_config(
+    width  = 45,             # Width of the output plot in inches
+    height = 15              # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "dynamic",      # Use {Source} and {Destination} from column values
+      text = "Change in bilateral trade between {Source} and {Destination}",
+      sep  = ""
+    ),
+    positive_color = "#2E8B57",  # Color for positive values
+    negative_color = "#CD5C5C",  # Color for negative values
+    all_font_size  = 1.1,        # Scale for all font sizes in the plot 
+    panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+  )
+)
+</code></pre>
+</div>
+
+<div id="top_impact_detail" class="code-box">
+
+<p>This function is similar to the "Default" code, but adds <code>top_impact = 10</code> to automatically filter the top 10 most impacted sectors (e.g., <code>x_axis_from = "Commodity"</code>).</p>
+
+<pre><code>
+# For help function use: ?detail_plot
+## You can change `top_impact` to any numeric value.
+detail.data <- sl4.plot.data[["COMM*REG"]]  # Replace with your actual dataframe
+
+default_detail <- detail_plot(
+  data                      = detail.data,
+  x_axis_from               = "Commodity",      # Column used for the x-axis
+  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
+  panel_var                 = "Experiment",     # Column used for paneling (faceting)
+  top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
+  invert_axis              = TRUE,             # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
+  add_var_info              = FALSE,            # Add variable code in parentheses (e.g., Real GDP (qgdp))
+  export_picture            = FALSE,            # Export the plots as image files
+  export_as_pdf             = FALSE,            # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+  
+    # Output Configurations
+    ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
+    export_config = create_export_config(  
+    width  = 23,              # Width of the output plot in inches
+    height = 9                # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
+      text = "Change in",
+      sep  = " - "
+    ),
+    positive_color = "#2E8B57",  # Color for positive values
+    negative_color = "#CD5C5C",  # Color for negative values
+    all_font_size  = 1.1,        # Scale for all font sizes in the plot 
+    panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation
+  )
+)
+</code></pre>
+</div>
+
+<div id="advanced_detail" class="code-box">
+<p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
+
+<pre><code>
+# For help function use: ?detail_plot
+detail.data <- sl4.plot.data[["COMM*REG"]]   # Replace with your actual dataframe name
+
+adv.detail.plot <- detail_plot(
+  data                    = detail.data,
+  x_axis_from             = "Colname",
+  filter_var              = NULL,
+  split_by                = c("Var1", "Var2", "Var3"),
+  panel_var               = "Experiment",
+  variable_col            = "Variable",
+  unit_col                = "Unit",
+  desc_col                = "Description",
+  top_impact              = NULL,
+  invert_axis            = FALSE,
+  separate_figure         = FALSE,
+  var_name_by_description = FALSE,
+  add_var_info            = FALSE,
+  export_picture          = FALSE,
+  export_as_pdf           = FALSE,
+  output_path             = "/your/path",
+
+  # Output Configurations
+  export_config           = create_export_config(
+    width = NULL,
+    height = NULL,
+    dpi = 300,
+    bg = "white",
+    limitsize = FALSE
+  )
+  
+  # All Plot Configurations
+  plot_style_config = create_plot_style(
+    
+    # Title settings
+    show_title = TRUE,
+    title_face = "bold",
+    title_size = 20,
+    title_hjust = 0.5,
+    add_unit_to_title = TRUE,
+    title_margin = c(10, 0, 10, 0), #c(top, right, bottom, left)
+    
+    title_format = create_title_format(
+      type = "standard", #option: standard (default), prefix, suffix, full, dynamic
+      text = "",
+      sep = ""
+    ),
+    
+    # X-Axis settings
+    show_x_axis_title = TRUE,
+    x_axis_title_face = "bold",
+    x_axis_title_size = 16,
+    x_axis_title_margin = c(25, 25, 0, 0), #c(top, right, bottom, left)
+    show_x_axis_labels = TRUE,
+    x_axis_text_face = "plain",
+    x_axis_text_size = 14,
+    x_axis_text_angle = 0,
+    x_axis_text_hjust = 0,
+    x_axis_description = "",
+    
+    # Y-Axis settings
+    show_y_axis_title = TRUE,
+    y_axis_title_face = "bold",
+    y_axis_title_size = 16,
+    y_axis_title_margin = c(25, 25, 0, 0), #c(top, right, bottom, left)
+    show_y_axis_labels = TRUE,
+    y_axis_text_face = "plain",
+    y_axis_text_size = 14,
+    y_axis_text_angle = 0,
+    y_axis_text_hjust = 0,
+    y_axis_description = "",
+    show_axis_titles_on_all_facets = TRUE,
+    
+    # Value Labels
+    show_value_labels = TRUE,
+    value_label_face = "plain",
+    value_label_size = 5,
+    value_label_position = "above",
+    value_label_decimal_places = 2,
+    
+    # Legend
+    show_legend = FALSE,
+    show_legend_title = FALSE,
+    legend_position = "bottom",
+    legend_title_face = "bold",
+    legend_text_face = "plain",
+    legend_text_size = 14,
+    
+    # Panel Strip
+    strip_face = "bold",
+    strip_text_size = 16,
+    strip_background = "lightgrey",
+    strip_text_margin = c(10, 0, 10, 0), #c(top, right, bottom, left)
+    
+    # Panel Layout
+    panel_spacing = 2,
+    panel_rows = NULL,
+    panel_cols = NULL,
+    theme = NULL,
+    
+    # Colors and Grid 
+    color_tone = NULL,
+    color_palette_type = "qualitative", #option: qualitative, sequential, diverging
+    positive_color = "#2E8B57",
+    negative_color = "#CD5C5C",
+    background_color = "white",
+    grid_color = "grey90",
+    show_grid_major_x = FALSE,
+    show_grid_major_y = FALSE,
+    show_grid_minor_x = FALSE,
+    show_grid_minor_y = FALSE,
+    
+    # Zero Line
+    show_zero_line = TRUE,
+    zero_line_type = "dashed",
+    zero_line_color = "black",
+    zero_line_size = 0.5,
+    zero_line_position = 0,
+    
+    # Bar Chart
+    bar_width = 0.9,
+    bar_spacing = 0.9,
+    
+    # Scale Settings
+    scale_limit = NULL,
+    scale_increment = NULL,
+    
+    # Scale Expansion
+    expansion_y_mult = c(0.05, 0.1),
+    expansion_x_mult = c(0.05, 0.05),
+    
+    # Font Size Control
+    all_font_size = 1,
+    
+    # Data Sorting
+    sort_data_by_value = FALSE,
+    
+    # Plot Margin
+    plot.margin = c(10, 25, 10, 10) #c(top, right, bottom, left)
+  )
+)
+</code></pre>
+</div>
+
+
+</div> <!-- END .code-group-detail -->
+
+<script>
+  const selectDetail = document.getElementById("plotFilterDetail");
+  const boxesDetail = document.querySelectorAll(".code-group-detail .code-box");
+
+  function showDetail() {
+    boxesDetail.forEach(box => box.style.display = "none");
+    const selected = selectDetail.value;
+    const box = document.getElementById(selected);
+    if (box) box.style.display = "block";
+  }
+
+  selectDetail.addEventListener("change", showDetail);
+  showDetail();
+</script>
+<!-- END -->
+</details>
+<p><br></p>
+</div>
+<div id="stack-plot" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Stack Plot</h1>
+<details>
+<summary class="toggle-summary">
+💻 Stack Plot Codes
+</summary>
+<!-- START: Stack Plot Filter UI -->
+<style>
+  label { font-weight: bold; }
+  select { font-size: 16px; margin-bottom: 20px; padding: 5px 10px; width: 300px;}
+  pre { background-color: #f4f4f4; padding: 15px; border-left: 5px solid #1C3E5D; overflow-x: auto; }
+  .code-box { display: none; }
+</style>
+
+<label for="plotFilterStack">Choose Codes:</label>
+<select id="plotFilterStack">
+  <option value="default_stack">Default</option>
+  <option value="unstack_plot">Unstack Plot</option>
+  <option value="advanced_stackplot">Advanced Stack Plot</option>
+</select>
+
+<div class="stack-code-blocks">
+
+<div id="default_stack" class="code-box">
+  <p>This R script is designed to create a stack plot suitable for decomposition analysis—such as welfare decomposition from header <code>A</code> of <code>-WEL.har</code>.</p>
+  
+  <pre><code>
+# For help function use: ?stack_plot
+stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
+
+stack_plot(
+  data                      = stack.data,
+  x_axis_from               = "Region",        # Column used for the x-axis
+  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  stack_value_from          = "COLUMN",        # Column that defines the components of the stack plot
+  show_total                = TRUE,            # Show the total value label in the stack plot
+  unstack_plot              = FALSE,           # If TRUE, unstack the bars and display them separately (comparison style)
+  split_by                  = FALSE,           # Column(s) used to split data into separate plots. FALSE disables splitting
+  panel_var                 = "Experiment",    # Column used for paneling (faceting)
+  top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
+  invert_axis              = FALSE,           # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,            # Use the description as the variable name (e.g., qgdp becomes Real GDP)
+  add_var_info              = FALSE,           # Add variable code in parentheses (e.g., Real GDP (qgdp))
+  export_picture            = FALSE,           # Export the plots as image files
+  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+  
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
+  export_config = create_export_config(
+    width  = 28,             # Width of the output plot in inches
+    height = 15              # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "full",         # option: standard (default), prefix, suffix, full, dynamic
+      text = "Welfare Decomposition",
+      sep  = ""
+    ),
+    color_tone    = "purdue",   # Color palette for the plot
+    all_font_size = 1,          # Scale for all font sizes in the plot 
+    panel_rows    = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols    = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+  )
+)
+</code></pre>
+  </div>
+  
+  <div id="unstack_plot" class="code-box">
+  <p>This R script is designed to create an unstacked plot, suitable for further analyzing decomposition results at a disaggregated level (e.g., by country).</p>
+  
+  <pre><code>
+  # For help function use: ?stack_plot
+  stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
+
+stack_plot(
+  data                      = stack.data,
+  x_axis_from               = "Region",        # Column used for the x-axis
+  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  stack_value_from          = "COLUMN",        # Column that defines the components of the stack plot
+  show_total                = TRUE,            # Show the total value label in the stack plot
+  unstack_plot              = TRUE,            # If TRUE, unstack the bars and display them separately (comparison style)
+  split_by                  = "Region",        # Column(s) used to split data into separate plots (e.g., one plot per region)
+  panel_var                 = "Experiment",    # Column used for paneling (faceting)
+  top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
+  invert_axis              = FALSE,           # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,            # Use the description as the variable name
+  add_var_info              = FALSE,           # Add variable code in parentheses
+  export_picture            = FALSE,           # Export the plots as image files
+  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+  
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
+  export_config = create_export_config(
+    width  = 28,             # Width of the output plot in inches
+    height = 15              # Height of the output plot in inches
+  ),
+  
+  plot_style_config = create_plot_style(
+    title_format = create_title_format(
+      type = "full",         # option: standard (default), prefix, suffix, full, dynamic
+      text = "Welfare Decomposition",
+      sep  = ""
+    ),
+    color_tone    = "purdue",   # Color palette for the plot
+    all_font_size = 1,          # Scale for all font sizes in the plot 
+    panel_rows    = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
+    panel_cols    = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+  )
+)
+</code></pre>
+  </div>
+    
+
+
+<div id="advanced_stackplot" class="code-box">
+<p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
+
+<pre><code>
+# For help function use: ?stack_plot
+stack_plot_data <- har.plot.data[["A"]]  # Replace with your actual dataframe name
+
+adv.stack.plot <- stack_plot(
+  data = detail.data,
+  x_axis_from             = "Colname",
+  filter_var              = NULL,
+  split_by                = NULL,
+  stack_value_from        = "Colname",
+  unstack_plot            = TRUE,
+  panel_var               = "Experiment",
+  variable_col            = "Variable",
+  unit_col                = "Unit",
+  desc_col                = "Description",
+  top_impact              = NULL,
+  invert_axis            = FALSE,
+  separate_figure         = FALSE,
+  var_name_by_description = FALSE,
+  add_var_info            = FALSE,
+  export_picture          = FALSE,
+  export_as_pdf           = FALSE,
+  output_path             = "/your/path",
+
+  # Output Configurations
+  export_config           = create_export_config(
+    width = NULL,
+    height = NULL,
+    dpi = 300,
+    bg = "white",
+    limitsize = FALSE
+  )
+  
+  # All Plot Configurations
+  plot_style_config = create_plot_style(
+    
+    # Title settings
+    show_title = TRUE,
+    title_face = "bold",
+    title_size = 20,
+    title_hjust = 0.5,
+    add_unit_to_title = TRUE,
+    title_margin = c(10, 0, 10, 0), #c(top, right, bottom, left)
+    
+    title_format = create_title_format(
+      type = "standard", #option: standard (default), prefix, suffix, full, dynamic
+      text = "",
+      sep = ""
+    ),
+    
+    # X-Axis settings
+    show_x_axis_title = TRUE,
+    x_axis_title_face = "bold",
+    x_axis_title_size = 16,
+    x_axis_title_margin = c(25, 25, 0, 0), #c(top, right, bottom, left)
+    show_x_axis_labels = TRUE,
+    x_axis_text_face = "plain",
+    x_axis_text_size = 14,
+    x_axis_text_angle = 0,
+    x_axis_text_hjust = 0,
+    x_axis_description = "",
+    
+    # Y-Axis settings
+    show_y_axis_title = TRUE,
+    y_axis_title_face = "bold",
+    y_axis_title_size = 16,
+    y_axis_title_margin = c(25, 25, 0, 0), #c(top, right, bottom, left)
+    show_y_axis_labels = TRUE,
+    y_axis_text_face = "plain",
+    y_axis_text_size = 14,
+    y_axis_text_angle = 0,
+    y_axis_text_hjust = 0,
+    y_axis_description = "",
+    show_axis_titles_on_all_facets = TRUE,
+    
+    # Value Labels
+    show_value_labels = TRUE,
+    value_label_face = "plain",
+    value_label_size = 5,
+    value_label_position = "above",
+    value_label_decimal_places = 2,
+    
+    # Legend
+    show_legend = FALSE,
+    show_legend_title = FALSE,
+    legend_position = "bottom",
+    legend_title_face = "bold",
+    legend_text_face = "plain",
+    legend_text_size = 14,
+    
+    # Panel Strip
+    strip_face = "bold",
+    strip_text_size = 16,
+    strip_background = "lightgrey",
+    strip_text_margin = c(10, 0, 10, 0), #c(top, right, bottom, left)
+    
+    # Panel Layout
+    panel_spacing = 2,
+    panel_rows = NULL,
+    panel_cols = NULL,
+    theme = NULL,
+    
+    # Colors and Grid 
+    color_tone = NULL,
+    color_palette_type = "qualitative", #option: qualitative, sequential, diverging
+    positive_color = "#2E8B57",
+    negative_color = "#CD5C5C",
+    background_color = "white",
+    grid_color = "grey90",
+    show_grid_major_x = FALSE,
+    show_grid_major_y = FALSE,
+    show_grid_minor_x = FALSE,
+    show_grid_minor_y = FALSE,
+    
+    # Zero Line
+    show_zero_line = TRUE,
+    zero_line_type = "dashed",
+    zero_line_color = "black",
+    zero_line_size = 0.5,
+    zero_line_position = 0,
+    
+    # Bar Chart
+    bar_width = 0.9,
+    bar_spacing = 0.9,
+    
+    # Scale Settings
+    scale_limit = NULL,
+    scale_increment = NULL,
+    
+    # Scale Expansion
+    expansion_y_mult = c(0.05, 0.1),
+    expansion_x_mult = c(0.05, 0.05),
+    
+    # Font Size Control
+    all_font_size = 1,
+    
+    # Data Sorting
+    sort_data_by_value = FALSE,
+    
+    # Plot Margin
+    plot.margin = c(10, 25, 10, 10) #c(top, right, bottom, left)
+  )
+)
+</code></pre>
+</div>
+
+</div> <!-- END .stack-code-blocks wrapper -->
+
+<script>
+  const select = document.getElementById("plotFilterStack");
+  const wrapper = document.querySelector(".stack-code-blocks");
+  const boxes = wrapper.querySelectorAll(".code-box");
+
+  function showSelectedBox() {
+    boxes.forEach(box => box.style.display = "none");
+    const selected = select.value;
+    const target = document.getElementById(selected);
+    if (target) target.style.display = "block";
+  }
+
+  select.addEventListener("change", showSelectedBox);
+  showSelectedBox();
+</script>
+</details>
+</div>
+<div id="optional-plot-style-configs" class="section level1 unnumbered">
+<h1 class="unnumbered">(Optional) Plot Style Configs</h1>
+<div id="step-by-step" class="section level2 unnumbered">
+<h2 class="unnumbered">Step-by-step</h2>
+<ul>
+<li>Run the following chunks to view all available configurations.</li>
+</ul>
+<pre class="r"><code>get_all_config()</code></pre>
+<ul>
+<li><p>Rename the list outputs <code>my_export_config</code> and
+<code>my_style_config</code> to any names you prefer; you can create as
+many styles as needed.</p></li>
+<li><p>Enter the name of your custom style list into the plot function,
+while other settings in <code>(...)</code> remain unchanged, as shown in
+the sample below:</p></li>
+</ul>
+<pre class="r"><code>comparison_plot &lt;- (...,
+                    export_config = my_export_config,
+                    plot_style_config = my_style_config
+                    )</code></pre>
+<script>
+// SCRIPT 1: Copy Code Button
+window.addEventListener("load", function () {
+  document.querySelectorAll("pre code").forEach(function (codeBlock) {
+    const button = document.createElement("button");
+    button.className = "copy-code-button";
+    button.type = "button";
+    button.innerText = "Copy";
+    button.style.position = "absolute";
+    button.style.top = "4px";
+    button.style.right = "4px";
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        button.innerText = "Copied!";
+        setTimeout(() => (button.innerText = "Copy"), 1500);
+      });
+    });
+    const pre = codeBlock.parentNode;
+    pre.style.position = "relative";
+    pre.insertBefore(button, codeBlock);
+  });
+});
+
+// SCRIPT 2: Hide Navbar on Scroll Down
+document.addEventListener("DOMContentLoaded", function () {
+  let prevScrollPos = window.pageYOffset;
+  const navbar = document.querySelector(".navbar");
+  
+  if (navbar) {
+    // Set initial styles for smooth transition
+    navbar.style.transition = "top 0.3s";
+    navbar.style.position = "fixed";
+    navbar.style.width = "100%";
+    navbar.style.zIndex = "1000";
+    
+    window.addEventListener("scroll", function () {
+      const currentScrollPos = window.pageYOffset;
+      if (prevScrollPos > currentScrollPos) {
+        // Scrolling up
+        navbar.style.top = "0";
+      } else {
+        // Scrolling down
+        navbar.style.top = "-70px";
+      }
+      prevScrollPos = currentScrollPos;
+    });
+  }
+});
+
+// SCRIPT 3: Center Navbar Items
+document.addEventListener('DOMContentLoaded', function() {
+  // Create a container to center the navbar items
+  var navbar = document.querySelector('.navbar-collapse');
+  var navLinks = document.querySelectorAll('.navbar-left li');
+  var navRight = document.querySelector('.navbar-right');
+  
+  // Apply styles to center the main navigation
+  if (navbar && navLinks.length > 0) {
+    var mainNav = document.querySelector('.navbar-left');
+    
+    // Add a wrapper div to center the main nav
+    var centerWrapper = document.createElement('div');
+    centerWrapper.className = 'nav-center-wrapper';
+    centerWrapper.style.display = 'flex';
+    centerWrapper.style.justifyContent = 'center';
+    centerWrapper.style.flex = '1';
+    
+    // Move the main navbar inside this wrapper
+    if (mainNav && mainNav.parentNode) {
+      mainNav.parentNode.insertBefore(centerWrapper, mainNav);
+      centerWrapper.appendChild(mainNav);
+    }
+  }
+});
+</script>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

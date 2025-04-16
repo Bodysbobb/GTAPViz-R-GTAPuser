@@ -1,0 +1,508 @@
+/* --- RESET & BASE TYPOGRAPHY --- */
+h1, h2, h3, h4, h5, h6 {
+  color: #003366;
+  font-weight: bold;
+}
+body {
+  font-size: 18px;
+  padding-top: 80px;
+  counter-reset: fig-num package-plot-num package-table-num;
+}
+h1 { font-size: 34px; }
+h2 { font-size: 28px; }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
+code, pre { font-size: 16px; }
+#TOC a { font-size: 20px; }
+
+
+/* --- MORE MARGIN BETWEEN H2 SECTIONS --- */
+h2 {
+  margin-top: 2.5rem;
+}
+
+/* --- TOC SPACING --- */
+#TOC {
+  margin-top: 20px;
+  padding-top: 15px;
+}
+
+/* --- FIGURE & TABLE CONTAINERS --- */
+.center-figure, .package-figure, .package-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 20px auto;
+}
+.package-figure, .package-table {
+  counter-increment: package-plot-num package-table-num;
+}
+.package-figure figcaption::before {
+  content: "Plot " counter(package-plot-num) ": ";
+  font-weight: bold;
+}
+.package-table figcaption::before {
+  content: "Table " counter(package-table-num) ": ";
+  font-weight: bold;
+}
+
+/* --- BOX STYLES --- */
+.code-box, .table-box, .package-figure-box, .package-table-box {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #FAFAFA;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* --- FIGURE NOTES --- */
+.figure-note, .package-fig-note, .package-table-note {
+  font-size: 90%;
+  color: #555;
+  font-style: italic;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* --- WIDE TABLE STYLING --- */
+.table-box table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.table-box th, .table-box td {
+  border: 1px solid #ABB2BF;
+  padding: 8px;
+  text-align: left;
+}
+
+/* --- TIP / INFO / NOTE BOXES --- */
+.tip-box {
+  background-color: #E8F4FD;
+  border-left: 5px solid #5B9BD5;
+  padding: 10px 15px;
+  margin: 15px 0;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.info-box {
+  background-color: #FDF8E4;
+  border-left: 5px solid #E8A317;
+  padding: 15px 20px;
+  margin: 20px 0;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: 400;
+  color: #5C3D00;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+.note-box {
+  background-color: #F7F7F7;
+  border-left: 4px solid #999;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.folder-tree {
+  background-color: #FAFAFA;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  width: fit-content;
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+  white-space: pre;
+  line-height: 1.4;
+  text-align: left;
+  position: relative;
+}
+
+/* Hide any automatic copy buttons */
+.folder-tree .copy-code-button,
+.folder-tree pre::after {
+  display: none !important;
+}
+
+/* Remove inner pre/code styles */
+.folder-tree pre,
+.folder-tree code {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* --- TOGGLE STYLES --- */
+.toggle-summary, .toggle-code-summary, .toggle-info {
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+.toggle-summary {
+  color: #F2A900;
+  background-color: #003366;
+}
+.toggle-code-summary {
+  font-family: monospace;
+  font-size: 15px;
+  color: #333;
+  background-color: #f5f5f5;
+  border-left: 4px solid #bbb;
+  margin: 10px 0;
+}
+
+.toggle-info {
+  color: #8B5E00; 
+  border-left: 5px solid #E8A317;
+  background-color: #FDF8E4;
+  font-weight: bold;
+}
+
+.toggle-note {
+  font-weight: bold;
+  padding: 4px 12px;
+  margin: 0;
+  background-color: #F7F7F7;
+  text-align: left;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1.4;
+  display: list-item;  /* Keep arrow */
+}
+
+
+details.note-box {
+  background-color: #F7F7F7;
+  border-left: 4px solid #999;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* R Code Chunk Style */
+pre { position: relative; }
+
+pre.r {
+  position: relative;
+  display: block;
+  padding: 10px;
+  margin-left: 1.1em; /* shift box to make room for stripes */
+  background-color: #FAFAFA;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  white-space: pre;
+  overflow: visible !important;  /* KEY: allow ::before to show outside */
+  z-index: 0;
+}
+
+/* GTAP Stripe 1 (Navy) */
+pre.r::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.8em;
+  width: 0.3em;
+  height: 100%;
+  background-color: #003366;
+  z-index: -1;
+}
+
+/* GTAP Stripe 2 (Gold) */
+pre.r::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.4em;
+  width: 0.3em;
+  height: 100%;
+  background-color: #F2A900;
+  z-index: -1;
+}
+
+/* --- HR ELEMENT --- */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #bbb, #ccc);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+
+/* --- SECTION DIVIDER UNDER H1 HEADINGS --- */
+h1::after {
+  content: "";
+  display: block;
+  border-top: 1px solid #ccc;
+  margin: 20px 0 0 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+  border-radius: 0.5px;
+}
+
+/* --- COMMON ISSUE STYLE --- */
+.common-issue {
+  font-weight: bold;
+  color: #8B0000;  /* dark red */
+  font-size: 100%;
+}
+
+/* --- SMALLER FONT FOR CODE BOXES AND R CHUNKS --- */
+.code-box, .table-box, pre, code {
+  font-size: 14px !important;
+}
+
+/* --- COPY BUTTON --- */
+.copy-code-button {
+  background-color: #003366;
+  color: #F2A900;
+  border: none;
+  font-weight: bold;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+  transform: scale(1);
+  transition: transform 0.15s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.copy-code-button:hover {
+  transform: scale(1.08); /* Smooth zoom */
+}
+
+.copy-code-button.copied {
+  background-color: #F2A900 !important;
+  color: #003366 !important;
+}
+
+
+.copy-code-button:hover {
+  transform: scale(1.08);        /* Zoom on hover */
+}
+
+/* When copy succeeds — set this class via JS */
+.copy-code-button.copied {
+  background-color: #F2A900 !important;  /* Gold background */
+  color: #003366 !important;             /* Navy text */
+  transform: scale(1.1);
+}
+
+
+/* --- TOC FLOAT: BOLD ACTIVE MAIN HEADERS ONLY --- */
+nav#TOC ul li a[href^="#"]:not([href*="#section"]) {
+  font-weight: normal;
+}
+nav#TOC ul li a.is-active {
+  font-weight: bold;
+}
+
+
+/* --- SECTION DIVIDER ABOVE H1 HEADINGS (MAIN SECTION START) --- */
+h1::before {
+  content: "";
+  display: block;
+  border-top: 1px solid #ccc;
+  margin: 40px 0 20px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+  border-radius: 0.5px;
+}
+
+/* --- TOC FLOAT: BOLD ACTIVE MAIN TOPIC (# headers only) --- */
+nav#TOC ul li a {
+  font-weight: normal;
+}
+nav#TOC ul li a.is-active {
+  font-weight: bold !important;
+  color: #003366 !important;
+}
+
+
+
+/* --- NAVBAR ACTIVE & HOVER LINK STYLES --- */
+.navbar a {
+  font-weight: normal;
+  color: white !important;
+  text-decoration: none;
+  position: relative;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+.navbar a.active,
+.navbar a.is-active {
+  font-weight: bold;
+  color: #1C3E5D;
+}
+
+
+
+/* --- SECTION DIVIDER ABOVE H1 HEADINGS (MAIN SECTION START) --- */
+h1::before {
+  content: "";
+  display: block;
+  border-top: 1px solid #ccc;
+  margin: 40px 0 20px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+  border-radius: 0.5px;
+}
+
+/* --- REMOVE ANY EXISTING DIVIDER BELOW H1 --- */
+h1::after {
+  display: none !important;
+}
+
+/* --- TOC FLOAT: BOLD ACTIVE MAIN TOPIC (# headers only) --- */
+nav#TOC ul li a {
+  font-weight: normal;
+}
+nav#TOC ul li a.is-active {
+  font-weight: bold !important;
+  color: #003366 !important;
+}
+
+/* --- EXTRA MARGIN BELOW R CHUNK OUTPUTS --- */
+pre {
+  margin-top: 0.9rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* --- NAVBAR ACTIVE & HOVER LINK STYLES --- */
+.navbar a {
+  font-weight: normal;
+  color: white !important;
+  text-decoration: none !important;
+}
+.navbar a:hover {
+  color: #F2A900 !important;
+  text-decoration: underline !important;
+}
+.navbar-nav > li > a.active:not(.chatgpt-link),
+.navbar-nav > li.active > a:not(.chatgpt-link),
+.navbar a.is-active:not(.chatgpt-link) {
+  font-weight: bold !important;
+  color: #F2A900 !important;
+  background: none !important;
+  text-decoration: none !important;
+}
+
+
+/* === CLEAN & FIXED NAVBAR STYLING === */
+
+/* Fixed-position top navbar */
+.navbar {
+  background-color: #003366 !important; /* GTAP blue */
+  color: white !important;
+  transition: top 0.3s ease;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+}
+
+/* Core navbar alignment using Flexbox */
+.navbar-collapse {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Center-align left-side nav items */
+.navbar-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+
+/* Spacing between menu items */
+.navbar-nav > li {
+  margin-right: 10px;
+}
+
+/* Right-align ChatGPT button */
+.navbar-right {
+  display: flex !important;
+  align-items: center !important;
+  margin-left: auto !important;
+  white-space: nowrap;
+}
+
+/* ChatGPT button appearance */
+.navbar-nav > li > a.chatgpt-link,
+.navbar-nav > li > a[href*="chatgpt.com"] {
+  background-color: #F2A900 !important;
+  color: black !important;
+  font-weight: bold !important;
+  padding: 10px 15px !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  line-height: 20px !important;
+  transition: background-color 0.2s ease;
+  margin-top: 6px !important;
+}
+
+/* Hover effect for ChatGPT button */
+.navbar-nav > li > a.chatgpt-link:hover,
+.navbar-nav > li > a[href*="chatgpt.com"]:hover {
+  background-color: #002552 !important;
+  color: white !important;
+  text-decoration: none !important;
+}
+
+/* Adjust body space for fixed navbar */
+body {
+  padding-top: 70px;
+  transition: padding-top 0.3s ease;
+}
+body.navbar-hidden {
+  padding-top: 0;
+}
+
+/* Center wrapper if using JS to wrap navbar-left */
+.nav-center-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  flex: 1 !important;
+}
+
+/* Vertical alignment of all nav items */
+.navbar-nav > li > a {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  line-height: 20px !important;
+  background: none !important;
+  color: white !important;
+  font-weight: normal !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+/* === GTAPViz NAVBAR FONT SETTING === */
+.navbar,
+.navbar a,
+.navbar-nav > li > a {
+  font-family: Arial, sans-serif !important;
+}
+

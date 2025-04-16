@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>GTAPViz FAQs</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="mystyle.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GTAPViz Help</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="step1_setup.html">1.Project Setup</a>
+</li>
+<li>
+  <a href="step2_plot.html">2.Plotting</a>
+</li>
+<li>
+  <a href="step3_table.html">3.Table</a>
+</li>
+<li>
+  <a href="FAQs.html">FAQs</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r">
+    <span class="fas fa-robot"></span>
+     
+    ChatGPT GTAPViz-R
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">GTAPViz FAQs</h1>
+
+</div>
+
+
+<p>This document provides a list of frequently asked questions (FAQs)
+and their corresponding solutions related to the
+<strong>GTAPViz</strong> package. Users can identify relevant issues and
+run the suggested solutions by copying and pasting the code into their R
+script and run!</p>
+<div id="package-help" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Package Help</h1>
+<div class="info-box">
+<p><strong> <a
+href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r">ChatGPT
+Assistant for GTAPViz</a> </strong></p>
+</div>
+<p>Many helpful functions—such as how to rename values or columns—are
+not covered in this brief README.<br />
+For detailed instructions, please refer to the comprehensive guides and
+vignettes included with the package.</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://bodysbobb.github.io/GTAPViz/">Comprehensive
+Manuscript</a></li>
+</ol>
+<ul>
+<li>Click on the “Vignettes” tab to select a document:
+<ul>
+<li>Comprehensive Manuscript: Step-by-step instructions starting from
+the setup directory<br />
+</li>
+<li>Advanced Plot Configuration and Outputs: Focused on plot
+configurations and output formats<br />
+</li>
+<li>Advanced Table Configuration and Outputs: Focused on table
+configurations and output formats</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><p><a
+href="https://github.com/Bodysbobb/GTAPViz/blob/main/inst/GTAPViz.pdf">R
+Manual</a></p></li>
+<li><p><a
+href="https://bodysbobb.github.io/GTAPViz/reference/index.html">Function
+Index</a></p></li>
+</ol>
+</div>
+<div id="install-gtapviz-for-the-first-time" class="section level1"
+number="2">
+<h1><span class="header-section-number">2</span> Install GTAPViz for the
+first time</h1>
+<pre class="r"><code># Install devtools if not already installed
+if (!requireNamespace(&quot;devtools&quot;, quietly = TRUE)) {
+  install.packages(&quot;devtools&quot;) 
+}
+
+# Install GTAPViz from GitHub and load the package
+devtools::install_github(&quot;Bodysbobb/GTAPViz&quot;)
+require(GTAPViz)
+
+# Check the version of GTAPViz
+packageVersion(&quot;GTAPViz&quot;)</code></pre>
+</div>
+<div id="undefined-functions" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Undefined
+Functions</h1>
+<p><span class="common-issue">Common Issue:</span></p>
+<ul>
+<li>When running the code, an error indicates unused arguments or
+parameters, or an old version of the package is detected.</li>
+</ul>
+<p><strong>Note:</strong> This code will clear all R objects in the
+environment, so make sure to save your work before running it.</p>
+<div id="solution-1" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<p>Try force-reinstalling the updated version of
+<code>GTAPViz</code>.<br />
+If R prompts you to update any packages during the installation, it is
+recommended to choose “All”:</p>
+<pre class="r"><code># Clear all
+rm(list = ls())
+
+# Install devtools if not already installed
+if (!requireNamespace(&quot;devtools&quot;, quietly = TRUE)) {
+  install.packages(&quot;devtools&quot;)
+}
+
+# Force reinstallation of the latest version from GitHub
+devtools::install_github(&quot;Bodysbobb/GTAPViz&quot;, force = TRUE)
+require(GTAPViz)
+
+# Check the version of GTAPViz
+packageVersion(&quot;GTAPViz&quot;)</code></pre>
+</div>
+<div id="solution-2" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 2</h2>
+<p>If Solution 1 does not work, try removing the current version of
+‘GTAPViz’ and reinstalling it:</p>
+<ol style="list-style-type: decimal">
+<li><p>Restart your R session (close and reopen R), or go to
+<strong>Session &gt; Restart R</strong> in RStudio.</p></li>
+<li><p>Reinstall the package using the following code:</p></li>
+</ol>
+<pre class="r"><code># Clear all
+rm(list = ls())
+
+remove.packages(&quot;GTAPViz&quot;)
+
+# Force reinstallation of the latest version from GitHub
+devtools::install_github(&quot;Bodysbobb/GTAPViz&quot;, force = TRUE)
+require(GTAPViz)
+
+# Check the version of GTAPViz
+packageVersion(&quot;GTAPViz&quot;)</code></pre>
+</div>
+</div>
+<div id="get-empty-outputs" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Get Empty Outputs</h1>
+<p><span class="common-issue">Common Issue:</span></p>
+<ul>
+<li>Returns empty outputs when running the code.</li>
+</ul>
+<div id="solution-1-1" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<ul>
+<li><p>Check the “OutputMapping.xlsx” file in the <code>/map</code>
+folder. Make sure that all three sheets are well defined, and verify
+that the specified “Variables”, “Regions”, and “Sectors” exist in the
+input files.</p></li>
+<li><p>Check the project directory to ensure it includes the
+<code>/in</code> folder, and confirm that all input file names listed in
+the <code>experiment</code> file are correctly defined and match the
+actual input filenames.</p></li>
+<li><p>Check the variables (and other names) in the input files
+(<code>.sl4</code> and <code>.har</code>). Ensure that they exactly
+match the names defined in the “OutputMapping.xlsx” file (note: names
+are case-sensitive).</p></li>
+</ul>
+</div>
+<div id="solution-2-1" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 2</h2>
+<p>If you have tried all steps in Solution 1 but are still getting empty
+outputs, try running the following code to clear all R objects in the
+environment and attempt to re-extract all variables (this may take some
+time):</p>
+<pre class="r"><code># Define 
+project.folder &lt;- &quot;D:/One Drive/OneDrive - purdue.edu/GTAPViz Data/users&quot;
+experiment &lt;- c(&quot;IncreaseTar10&quot;, &quot;IncreaseTar50&quot;, &quot;ReduceTar20&quot;)
+
+
+# DO NOT CHANGE BELOW THIS LINE
+
+## Checking Folders
+input.folder &lt;- paste0(project.folder, &quot;/in&quot;)
+map.folder &lt;- paste0(project.folder, &quot;/map&quot;)
+
+# Function to check and report folder existence
+check_folder &lt;- function(folder.name, folder.path) {
+  if (!dir.exists(folder.path)) {
+    message(paste0(&quot;❌ &#39;&quot;, folder.name, &quot;&#39; does NOT exist at: &quot;, folder.path))
+  }
+}
+
+# Check each folder
+check_folder(&quot;input.folder&quot;, input.folder)
+check_folder(&quot;map.folder&quot;, map.folder)
+
+# Check input files
+if (dir.exists(input.folder)) {
+  files &lt;- list.files(input.folder, pattern = &quot;\\.(sl4|har)$&quot;, ignore.case = TRUE, full.names = FALSE)
+  if (length(files) &gt; 0) {
+    cat(&quot;Available files:&quot;, paste(files, collapse = &quot;,&quot;), &quot;\n&quot;)
+  }
+}
+
+# Extract Data
+auto_gtap_data(
+  experiment = experiment,
+  process_sl4_vars = NULL, 
+  process_har_vars = NULL,
+  mapping_info = &quot;GTAPv7&quot;,
+  sl4_mapping_info = NULL,
+  har_mapping_info = NULL,
+  sl4_convert_unit = NULL,
+  har_convert_unit = NULL,
+  region_select = NULL,
+  sector_select = NULL,
+  subtotal_level = FALSE,
+  input_path = input.folder,
+  map_path = map.folder,
+  sl4_extract_method = &quot;get_data_by_var&quot;,
+  har_extract_method = &quot;get_data_by_var&quot;,
+  subtotal_level = TRUE,
+  plot_data = TRUE,
+  output_formats = list(
+    &quot;csv&quot; = &quot;no&quot;,
+    &quot;stata&quot; = &quot;no&quot;,
+    &quot;rds&quot; = &quot;no&quot;,
+    &quot;txt&quot; = &quot;no&quot;))</code></pre>
+</div>
+<div id="solution-3" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 3</h2>
+<ol style="list-style-type: decimal">
+<li><p>Once the solution 2 is complete, check whether
+<code>sl4.plot.data</code> and <code>har.plot.data</code> appear in your
+R environment.<br />
+If they do, it means the extraction was successful using default
+settings. In that case, the root of the problem may be a mismatch when
+filtering data by “Variable”, “Region”, or “Sector” in the
+<strong>OutputMapping.xlsx</strong> file.</p>
+<ul>
+<li><p>Other potential issues may include:</p>
+<ul>
+<li>The data extraction method used in your code. Try modifying it as
+follows:
+<ul>
+<li><code>sl4_extract_method = "get_data_by_var"</code></li>
+<li><code>har_extract_method = "get_data_by_var"</code></li>
+</ul></li>
+<li>Your model includes <code>subtotal_effects</code>, but this was not
+enabled. Add this line to your code:
+<ul>
+<li><code>subtotal_level = TRUE</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>If the output is still empty, try reinstalling the
+package.</p></li>
+<li><p>After reinstalling, if the issue persists, try importing the raw
+data directly using the <code>HARplus</code> package.<br />
+For more details, see: <a
+href="https://bodysbobb.github.io/HARplus/articles/introduction.html"
+class="uri">https://bodysbobb.github.io/HARplus/articles/introduction.html</a></p></li>
+</ol>
+</div>
+</div>
+<div id="plot-dimensions" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Plot Dimensions</h1>
+<p><span class="common-issue">Common Issue:</span></p>
+<ul>
+<li><p>The plot output is not aesthetically pleasing—too dense, too
+small, or too large.</p></li>
+<li><p>The plot dimensions do not match expectations.</p></li>
+</ul>
+<div id="solution-1-2" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<ol style="list-style-type: decimal">
+<li>Adjust the <code>width</code> and <code>height</code> parameters in
+the following code.</li>
+</ol>
+<pre class="r"><code>my_export_config &lt;- create_export_config(
+  width = 10, # Width in inches
+  height = 6, # Height in inches
+  dpi = 300, # Resolution in dots per inch
+  units = &quot;in&quot; # Units for width and height
+)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Pass the customized <code>my_export_config</code> to your plot
+function, while keeping all other settings (<code>...</code>) unchanged,
+as shown in the example below:</li>
+</ol>
+<pre class="r"><code>comparison_plot(...,
+                export_config = my_export_config
+                )</code></pre>
+</div>
+</div>
+<div id="plot-order-and-rearrangement" class="section level1"
+number="6">
+<h1><span class="header-section-number">6</span> Plot Order and
+Rearrangement</h1>
+<p><span class="common-issue">Common Issue:</span></p>
+<ul>
+<li>Want to change the display order in plots, such as showing
+<code>EXP2</code> before <code>EXP1</code>, or <code>SEAsia</code>
+before <code>Oceania</code>.</li>
+</ul>
+<p>To customize the sorting, use the following command:</p>
+<pre class="r"><code># Using the function
+sort_sl4_plot &lt;- sort_plot_data(
+  sl4.plot.data,
+  sort_columns = list(
+    Experiment = c(&quot;EXP2&quot;, &quot;EXP1&quot;), # Column Name = Sorting Order
+    Region = c(&quot;SEAsia&quot;, &quot;Oceania&quot;)
+    ),
+  sort_by_value_desc = NULL
+)</code></pre>
+<details>
+<summary class="toggle-summary">
+💡 Tip
+</summary>
+<div class="tip-box">
+<pre><code>This will:
+&lt;ul&gt;
+  &lt;li&gt;Sort by multiple columns simultaneously for precise output control&lt;/li&gt;
+  &lt;li&gt;Apply consistent sorting across all data frames within a data list&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+</div>
+</details>
+</div>
+<div id="missing-plot-outputs" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Missing Plot
+Outputs</h1>
+<div id="solution-1-3" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<p>Ensure that the export parameters are set to <code>TRUE</code> in the
+plot function:</p>
+<pre class="r"><code>comparison_plot(...,
+                 export_picture = TRUE,
+                 export_as_pdf = &quot;merged&quot;) # (merged will combine all plots into one PDF file)</code></pre>
+</div>
+<div id="solution-2-2" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 2</h2>
+<ul>
+<li>Make sure you have defined the correct <code>output_path</code> in
+the plot function.<br />
+</li>
+<li>Check the R console to see if any errors occurred while generating
+the plots. If the plot was successfully created and saved, the R console
+should indicate the output directory.<br />
+</li>
+<li>If it still doesn’t work, try changing the directory to a local
+folder. Sometimes, issues occur due to directory permissions or
+cloud-synced folders.<br />
+</li>
+<li>Restart the R session and try again.</li>
+</ul>
+</div>
+</div>
+<div id="convert-different-units" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Convert Different
+Units</h1>
+<p><span class="common-issue">Common Issue:</span></p>
+<ul>
+<li>The data units are not in the desired format.<br />
+</li>
+<li>Monetary values are in units other than USD.<br />
+</li>
+<li>You want to convert specific units that are not automatically
+handled.</li>
+</ul>
+<div id="solution" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Solution:</h2>
+<p>You can convert all units across all data frames within the data list
+by using the following code:</p>
+<pre class="r"><code>your_data &lt;- sl4.plot.data   # Change this to your data list name
+
+your_data &lt;- convert_units(change_unit_from = c(&quot;BAHT&quot;, &quot;million USD&quot;),
+                           change_unit_to = c(&quot;USD&quot;, &quot;billion USD&quot;),
+                           adjustment = c(&quot;*34.5&quot;, &quot;/1000&quot;))</code></pre>
+<details>
+<summary class="toggle-summary">
+Explanation
+</summary>
+<div class="tip-box">
+<p><strong>What does this code do?</strong></p>
+<ul>
+<li><p>Converts <code>BAHT</code> to <code>USD</code> by multiplying the
+values by 34.5.</p></li>
+<li><p>Converts <code>million USD</code> to <code>billion USD</code> by
+dividing the values by 1,000.</p></li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><code>change_unit_from</code>: The original unit name to be
+changed in the <code>"Unit"</code> column.<br />
+If your dataset does not yet include a <code>"Unit"</code> column,
+please refer to <a href="#sec:add-info">adding unit and description
+columns</a>.</p></li>
+<li><p><code>change_unit_to</code>: The new unit name to be recorded in
+the <code>"Unit"</code> column.</p></li>
+<li><p><code>adjustment</code>: The mathematical operation used to
+transform the values.<br />
+Accepts operators such as <code>/</code>, <code>*</code>,
+<code>+</code>, or <code>-</code>.</p>
+</div>
+</details></li>
+</ul>
+<div id="sec:add-info" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Missing Unit and
+Description</h1>
+<p><span class="common-issue">Common Issue:</span></p>
+<ul>
+<li><p>Missing <code>"Description"</code> and <code>"Unit"</code>
+columns in the data list.</p></li>
+<li><p>The <code>"Description"</code> and <code>"Unit"</code> columns
+are not correctly defined for each variable.</p></li>
+</ul>
+<div id="solution-1-4" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<p>The easiest way is to re-run <code>1.ProjectSetup.R</code> file and
+ensure that you have define:</p>
+<ul>
+<li><p><code>OutputMapping.xlsx</code> file in the <code>/map</code>
+folder, specifically in column <code>"Description"</code> and
+<code>"Unit"</code> in sheet “SL4File” and “HARFile”.</p></li>
+<li><p>Make sure that you define the <code>mapping_info</code> parameter
+as <code>Yes</code> or <code>mix</code></p></li>
+</ul>
+<pre class="r"><code>mapping_df &lt;- data.frame(
+  Variable = c(&quot;qgdp&quot;, &quot;EV&quot;, &quot;ppriv&quot;),
+  Description = c(&quot;Real GDP Index&quot;, &quot;Welfare Equivalents&quot;, &quot;Consumer Price Index&quot;),
+  Unit = c(&quot;Percent&quot;, &quot;million USD&quot;, &quot;percent&quot;),
+  stringsAsFactors = FALSE
+)
+
+datasets &lt;- add_mapping_info(mapping_df, external_map = mapping_df, mapping = &quot;Yes&quot;)</code></pre>
+<p><strong>Note:</strong> Use <code>?add_mapping_info</code> to
+understand the meaning of <code>mapping</code>.</p>
+<script>
+// SCRIPT 1: Copy Code Button
+window.addEventListener("load", function () {
+  document.querySelectorAll("pre code").forEach(function (codeBlock) {
+    const button = document.createElement("button");
+    button.className = "copy-code-button";
+    button.type = "button";
+    button.innerText = "Copy";
+    button.style.position = "absolute";
+    button.style.top = "4px";
+    button.style.right = "4px";
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        button.innerText = "Copied!";
+        setTimeout(() => (button.innerText = "Copy"), 1500);
+      });
+    });
+    const pre = codeBlock.parentNode;
+    pre.style.position = "relative";
+    pre.insertBefore(button, codeBlock);
+  });
+});
+
+// SCRIPT 2: Hide Navbar on Scroll Down
+document.addEventListener("DOMContentLoaded", function () {
+  let prevScrollPos = window.pageYOffset;
+  const navbar = document.querySelector(".navbar");
+  
+  if (navbar) {
+    // Set initial styles for smooth transition
+    navbar.style.transition = "top 0.3s";
+    navbar.style.position = "fixed";
+    navbar.style.width = "100%";
+    navbar.style.zIndex = "1000";
+    
+    window.addEventListener("scroll", function () {
+      const currentScrollPos = window.pageYOffset;
+      if (prevScrollPos > currentScrollPos) {
+        // Scrolling up
+        navbar.style.top = "0";
+      } else {
+        // Scrolling down
+        navbar.style.top = "-70px";
+      }
+      prevScrollPos = currentScrollPos;
+    });
+  }
+});
+
+// SCRIPT 3: Center Navbar Items
+document.addEventListener('DOMContentLoaded', function() {
+  // Create a container to center the navbar items
+  var navbar = document.querySelector('.navbar-collapse');
+  var navLinks = document.querySelectorAll('.navbar-left li');
+  var navRight = document.querySelector('.navbar-right');
+  
+  // Apply styles to center the main navigation
+  if (navbar && navLinks.length > 0) {
+    var mainNav = document.querySelector('.navbar-left');
+    
+    // Add a wrapper div to center the main nav
+    var centerWrapper = document.createElement('div');
+    centerWrapper.className = 'nav-center-wrapper';
+    centerWrapper.style.display = 'flex';
+    centerWrapper.style.justifyContent = 'center';
+    centerWrapper.style.flex = '1';
+    
+    // Move the main navbar inside this wrapper
+    if (mainNav && mainNav.parentNode) {
+      mainNav.parentNode.insertBefore(centerWrapper, mainNav);
+      centerWrapper.appendChild(mainNav);
+    }
+  }
+});
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

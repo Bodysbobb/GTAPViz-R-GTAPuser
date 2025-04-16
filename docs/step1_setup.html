@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Step 1: Project Setup</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="mystyle.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GTAPViz Help</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="step1_setup.html">1.Project Setup</a>
+</li>
+<li>
+  <a href="step2_plot.html">2.Plotting</a>
+</li>
+<li>
+  <a href="step3_table.html">3.Table</a>
+</li>
+<li>
+  <a href="FAQs.html">FAQs</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r">
+    <span class="fas fa-robot"></span>
+     
+    ChatGPT GTAPViz-R
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Step 1: Project Setup</h1>
+
+</div>
+
+
+<p>This manual provides an explanation of the file
+<code>1.ProjectSetup.R</code></p>
+<div style="height: 6px;">
+
+</div>
+<div id="directories-and-input-files" class="section level1 unnumbered">
+<h1 class="unnumbered">Directories and Input Files</h1>
+<p>Before proceeding, make sure your project directory is structured as
+follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Replace all sample input files in the <code>/in</code> folder
+with your own simulation results.</p></li>
+<li><p>Ensure that <code>OutputMapping.xlsx</code> exists in the
+<code>/map</code> folder and that you have defined the parameters you
+want to extract:</p>
+<ul>
+<li>Use the <code>SL4File</code> sheet to select variables from the
+<code>.sl4</code> file.<br />
+</li>
+<li>Use the <code>HARFile</code> sheet to select variables from the
+<code>.har</code> file.<br />
+</li>
+<li>The <code>Filter</code> sheet (optional) allows you to:
+<ul>
+<li>Use the <code>Region</code> column to specify regions (default GTAP
+column: <code>REG</code>).</li>
+<li>Use the <code>Sector</code> column to specify sectors (default GTAP
+columns: <code>COMM</code> and <code>ACTS</code>).</li>
+</ul></li>
+</ul></li>
+</ol>
+<p><strong>Note:</strong> If <code>OutputMapping.xlsx</code> is missing,
+you can download it again from <a
+href="https://github.com/Bodysbobb/GTAPViz/tree/main/inst/extdata/map">here</a>.</p>
+<figure class="center-figure">
+<div class="folder-tree">
+<pre class="monospace"><code>📂 project.folder/
+├── 📂 in/
+│   ├── 📄 IncreaseTar10.sl4
+│   ├── 📄 IncreaseTar10-WEL.har
+│   ├── 📄 IncreaseTar50.sl4
+│   ├── 📄 IncreaseTar50-WEL.har
+│   ├── 📄 ...
+├── 📂 map/
+│   ├── 📄 OutputMapping.xlsx
+├── 📂 out/</code></pre>
+</div>
+<figcaption class="auto-fig">
+Example of Project Folder
+</figcaption>
+</figure>
+</div>
+<div id="project-parameters" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Project Parameters</h1>
+<div id="project.folder" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span>
+<code>project.folder</code></h2>
+<p>R requires forward slashes (<code>/</code>) in the file path.</p>
+<pre class="r"><code>project.folder &lt;- &quot;c:/your/project/folder&quot;</code></pre>
+<div style="height: 8px;">
+
+</div>
+</div>
+<div id="experiment" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span>
+<code>experiment</code></h2>
+<p>List all input file names (<code>.sl4</code> and/or
+<code>.har</code>) <strong>without suffix</strong>, located in the
+<strong>/in</strong> folder, in the desired order:</p>
+<details>
+<summary class="toggle-note">
+Explanations
+</summary>
+<div class="note-box">
+<strong>Note</strong>: <br> (1) <strong>Case-sensitive</strong> —
+<code>"Exp1"</code> is different from <code>"exp1"</code><br />
+(2) <strong>Display order matters</strong> — files listed first will
+appear first in outputs and figures<br />
+(3) <strong>Matching names required</strong> — simulations must use the
+same base name for both <code>.sl4</code> and <code>.har</code> files to
+align results correctly (e.g., <code>IncreaseTar10.sl4</code> and
+<code>IncreaseTar10.har</code>)
+</div>
+</details>
+<pre class="r"><code>experiment &lt;- c(&quot;IncreaseTar10&quot;, &quot;IncreaseTar50&quot;, &quot;ReduceTar20&quot;)</code></pre>
+<div style="height: 8px;">
+
+</div>
+</div>
+<div id="sl4_suffix-har_suffix" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span>
+<code>sl4_suffix / har_suffix</code></h2>
+<p>This is the suffix used in the file name (not the file extension).
+Use <code>NULL</code> or <code>""</code> if no suffix is used.</p>
+<pre class="r"><code>sl4_suffix &lt;- &quot;&quot;
+har_suffix &lt;- &quot;-WEL&quot;</code></pre>
+</div>
+<div id="process_var" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span>
+<code>process_var</code></h2>
+<p>Define which variables to process for <code>sl4</code> and
+<code>har</code> separately.</p>
+<details>
+<summary class="toggle-note">
+Explanations
+</summary>
+<div class="note-box">
+By default, the setup follows your mapping file sheets “SL4File” and
+“HARFile”.<br> - <code>sl4map</code> and <code>harmap</code>: Default
+mode<br> - <code>NULL</code>: Select all variables from that file
+format<br> - <code>FALSE</code>: Skipping that file format
+</div>
+</details>
+<pre class="r"><code>process_sl4_vars &lt;- &quot;sl4map&quot;  # Leave it like this for default
+process_har_vars &lt;- &quot;harmap&quot;  # Leave it like this for default</code></pre>
+</div>
+</div>
+<div id="output-formatting-parameters" class="section level1"
+number="2">
+<h1><span class="header-section-number">2</span> Output Formatting
+Parameters</h1>
+<div id="mapping_info" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span>
+<code>mapping_info</code></h2>
+<details>
+<summary class="toggle-note">
+Explanations
+</summary>
+<div class="note-box">
+<ul>
+<li><p><code>"Yes"</code> → Uses descriptions and units from the mapping
+file.</p></li>
+<li><p><code>"No"</code> → Excludes <code>"Description"</code> and
+<code>"Unit"</code>.</p></li>
+<li><p><code>"GTAPv7"</code>→ Applies default definitions and units from
+<em>GTAP Model Version 7</em>.</p></li>
+<li><p><code>"Mix"</code> → Uses manual values when available;
+otherwise, applies GTAP defaults.</p></li>
+</ul>
+<p>See details in <code>GTAPViz::?add_mapping_info</code></p>
+</div>
+</details>
+<pre class="r"><code>mapping_info &lt;- &quot;Mix&quot;        </code></pre>
+<div style="height: 8px;">
+
+</div>
+</div>
+<div id="output-formats" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span>
+<code>output formats</code></h2>
+<p><strong>“Yes” or “No”</strong>. Available formats: .csv, .dta
+(Stata), .Rds (R), .txt</p>
+<pre class="r"><code>csv.output &lt;- &quot;No&quot;    
+stata.output &lt;- &quot;No&quot;  
+r.output &lt;- &quot;No&quot;
+txt.output &lt;- &quot;No&quot;   </code></pre>
+<div style="height: 8px;">
+
+</div>
+</div>
+<div id="plot_data" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span>
+<code>plot_data</code></h2>
+<p><strong>TRUE / FASLE</strong>. This will be used for plotting and
+generating tables in Step 2 and Step 3.</p>
+<pre class="r"><code>plot_data &lt;- TRUE</code></pre>
+<div style="height: 8px;">
+
+</div>
+</div>
+<div id="convert_unit-decimals" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span>
+<code>convert_unit / decimals</code></h2>
+<p>This setting applies unit conversion to all input files matching the
+specified unit values.</p>
+<details>
+<summary class="toggle-note">
+Explanations
+</summary>
+<div class="note-box">
+<p>The default <code>"Unit"</code> is based on your mapping file or
+<code>"GTAPv7"</code>, depending on the <code>mapping_info</code>
+setting.</p>
+<ul>
+<li><p><code>"mil2bil"</code>: million → billion USD (/1000)</p></li>
+<li><p><code>"bil2mil"</code>: billion → million USD (*1000)</p></li>
+<li><p><code>"pct2frac"</code>: percent → fraction (/100)</p></li>
+<li><p><code>"frac2pct"</code>: fraction → percent (*100)</p></li>
+</ul>
+<p>See details in <code>?convert_units</code> under
+<code>scale_auto</code></p>
+</div>
+</details>
+<pre class="r"><code>sl4_convert_unit &lt;- c(&quot;mil2bil&quot;)   # Use NULL for no unit conversion
+har_convert_unit &lt;- c(&quot;mil2bil&quot;, &quot;pct2frac&quot;)
+decimals &lt;- 4</code></pre>
+<div style="height: 8px;">
+
+</div>
+</div>
+<div id="rename_columns" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span>
+<code>rename_columns</code></h2>
+<p>Renames GTAP column identifiers (<code>TRUE</code> or
+<code>FALSE</code>) to more readable format for all data extraction
+methods.</p>
+<details>
+<summary class="toggle-note">
+Explanations
+</summary>
+<div class="note-box">
+<ul>
+<li><p><code>REG</code> → Region,</p></li>
+<li><p><code>COMM</code> → Commodity,</p></li>
+<li><p><code>ACTS</code> → Activity</p></li>
+</ul>
+<p><strong>Note:</strong> This setup will only work with those three
+columns, if you desire to rename additional columns see <strong>FAQs -
+Renaming Columns and Data List Names”</strong></p>
+</div>
+</details>
+<pre class="r"><code>rename_columns &lt;- TRUE</code></pre>
+<div style="height: 6px;">
+
+</div>
+</div>
+<div id="subtotal_level" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span>
+<code>subtotal_level</code></h2>
+<p>Set <code>TRUE</code> if subtotals are included in your
+simulations</p>
+<pre class="r"><code>subtotal_level &lt;- FALSE</code></pre>
+</div>
+<div id="add_scenario_ranking" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span>
+<code>add_scenario_ranking</code></h2>
+<p>Options: <code>TRUE</code>, <code>FALSE</code>, or
+<code>"merged"</code></p>
+<details>
+<summary class="toggle-note">
+Explanations
+</summary>
+<div class="note-box">
+<ul>
+<li><p><code>TRUE</code>: Adds a ranking column called
+<code>"ScenarioRank"</code></p></li>
+<li><p><code>"merged"</code>: Also prefixes experiment names in the
+<code>"Experiment"</code> column with the rank (e.g.,
+<code>(1) ReduceTar50</code>) for display in plots</p></li>
+</ul>
+</div>
+</details>
+<pre class="r"><code>add_scenario_ranking &lt;- TRUE</code></pre>
+</div>
+</div>
+<div id="optional-auto-gtap-data-extraction"
+class="section level1 unnumbered">
+<h1 class="unnumbered">(Optional) Auto GTAP Data Extraction</h1>
+<p>If you want to <strong>manually set up the initial GTAP data</strong>
+or <strong>recover after deleting the setup file</strong>,<br />
+you can copy and paste the following code into your R script to retrieve
+the required data:</p>
+<details>
+<summary class="toggle-summary">
+💻 AutoGTAP Codes
+</summary>
+<!-- START: AutoGTAP Filter UI -->
+<style>
+  label { font-weight: bold; }
+  select { font-size: 16px; margin-bottom: 20px; padding: 5px 10px; width: 300px;}
+  pre { background-color: #f4f4f4; padding: 15px; border-left: 5px solid #1C3E5D; overflow-x: auto; }
+  .code-box { display: none; }
+</style>
+
+<label for="AutoGTAPData">Choose Codes:</label>
+<select id="AutoGTAPData">
+  <option value="default">Default</option>
+  <option value="advanced">Advanced</option>
+WT</select>
+
+<div class="code-group-AutoGTAP">
+
+<div id="default" class="code-box">
+<p>This function is a default <code>auto_gtap_data</code> applied in default setup of <code>1.ProjectSetup.R</code> </p>
+
+<pre><code>
+# Directory Setup and Input Files
+project.folder <- "your/project.directory"  # Use forward slashes (/)
+experiment <- c("IncreaseTar10", "IncreaseTar50", "ReduceTar20")  # Replace with your case names
+sl4_suffix <- ""       # Suffix for .sl4 files (leave empty or NULL if none)
+har_suffix <- "-WEL"   # Suffix for .har files
+process_sl4_vars <- "sl4map"  # Leave it like this for default
+process_har_vars <- "harmap"  # Leave it like this for default
+subtotal_level <- FALSE  # Set TRUE if subtotals are included in your simulations
+
+# Meta Data
+mapping_info <- "Mix"  # Controls variable descriptions and units (see documentation)
+
+# Output Format Setup
+csv.output   <- "No"
+stata.output <- "No"
+r.output     <- "No"
+txt.output   <- "No"
+plot_data    <- TRUE   # Generate plot-ready outputs
+
+# Output Formatting
+sl4_convert_unit <- "mil2bil"  # Convert million to billion
+har_convert_unit <- "mil2bil"
+decimals         <- 2
+rename_columns   <- TRUE       # Rename GTAP columns (e.g., "REG" → "Region")
+add_scenario_ranking <- TRUE   # Add numeric rank to experiments
+
+###################################
+# DO NOT CHANGE BELOW THIS LINE
+###################################
+
+assign_default <- function(var_name, default_value, treat_null_as_missing = TRUE, treat_empty_string_as_missing = FALSE) {
+  if (!exists(var_name)) {
+    return(default_value)
+  }
+  
+  val <- get(var_name)
+  
+  if (is.na(val)) return(default_value)
+  if (treat_null_as_missing && is.null(val)) return(default_value)
+  if (treat_empty_string_as_missing && identical(val, "")) return(default_value)
+  
+  return(val)
+}
+
+# Install packagfees if not already installed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+
+# Install GTAPViz from GitHub if not already installed
+if (!requireNamespace("GTAPViz", quietly = TRUE)) {
+  devtools::install_github("Bodysbobb/GTAPViz")
+}
+
+# Load the GTAPViz package
+require(GTAPViz)
+
+# 1. Default Directory
+input.folder <- paste0(project.folder, "/in")
+map.folder <- paste0(project.folder, "/map")
+output.folder <- paste0(project.folder, "/out")
+
+# 2. Default Input Files
+sl4map <- readxl::read_xlsx(paste0(map.folder, "/OutputMapping.xlsx"), sheet = "SL4File")
+harmap <- readxl::read_xlsx(paste0(map.folder, "/OutputMapping.xlsx"), sheet = "HARFile")
+filter.map <- readxl::read_xlsx(paste0(map.folder, "/OutputMapping.xlsx"), sheet = "FilterData")
+
+# 3. Suffix for Input Files
+sl4_suffix <- assign_default("sl4_suffix", "", treat_empty_string_as_missing = FALSE)
+har_suffix <- assign_default("har_suffix", "", treat_empty_string_as_missing = FALSE)
+
+# 4. Filter Data
+selected_regions <- if (exists("filter.map") && length(filter.map$Region) > 0) filter.map$Region else NULL
+selected_sector  <- if (exists("filter.map") && length(filter.map$Sector) > 0) filter.map$Sector else NULL
+
+# 5. Converting Units & Rename Columns
+sl4_convert_unit <- assign_default("sl4_convert_unit", NULL)
+har_convert_unit <- assign_default("har_convert_unit", NULL)
+decimals <- assign_default("decimals", 4)
+rename_columns <- assign_default("rename_columns", TRUE)
+
+# 6. Scenario Number Labels Column
+add_scenario_ranking <- assign_default("add_scenario_ranking", FALSE)
+
+# 7. Data Extraction Methods
+## Set default values if missing
+sl4_extract_method <- assign_default("sl4_extract_method", "get_data_by_dims")
+har_extract_method <- assign_default("har_extract_method", "get_data_by_var")
+
+## Check if priority is missing when using group_data_by_dims
+if (sl4_extract_method == "group_data_by_dims") {
+  if (!exists("sl4_priority") || is.null(sl4_priority) || sl4_priority == "") {
+    stop("Please define 'sl4_priority' for sl4_extract_method = 'group_data_by_dims'")
+  }
+}
+
+if (har_extract_method == "group_data_by_dims") {
+  if (!exists("har_priority") || is.null(har_priority) || har_priority == "") {
+    stop("Please define 'har_priority' for har_extract_method = 'group_data_by_dims'")
+  }
+}
+
+auto_gtap_data(
+  # Input Main File Names
+  experiment = experiment, 
+  
+  # Input File Suffixes
+  sl4_suffix = sl4_suffix,
+  har_suffix = har_suffix,
+  
+  # Directories
+  input_path = input.folder,
+  output_path = output.folder,
+  
+  # Variable Selection
+  process_sl4_vars = sl4map, 
+  process_har_vars = harmap,
+  
+  # Description and Unit Mapping (if `mapping_info` is set to "Yes" or "Mix")
+  mapping_info = mapping_info,
+  sl4_mapping_info = sl4map,
+  har_mapping_info = harmap,
+  rename_columns = rename_columns,
+  
+  # Convert units (see `?convert_units`)
+  sl4_convert_unit = sl4_convert_unit,
+  har_convert_unit = har_convert_unit,
+  
+  # Region and Sector Filtering
+  region_select = selected_regions,
+  sector_select = selected_sector,
+  
+  # Data Extraction Process
+  sl4_extract_method = sl4_extract_method,
+  har_extract_method = har_extract_method,
+  subtotal_level = subtotal_level,
+  
+  # If using `"group_data_by_dims"`, a `priority_list` is required. See `?HARplus::group_data_by_dims`.
+  sl4_priority = sl4_priority,
+  har_priority = har_priority,
+  
+  # Adding Scenario Ranking
+  add_scenario_ranking = add_scenario_ranking,
+  
+  # Output Formats
+  plot_data = plot_data,
+  output_formats = list(
+    "csv" = csv.output,
+    "stata" = stata.output,
+    "rds" = r.output,
+    "txt" = txt.output
+  ),
+  
+  # Output Names for Plot Data
+  sl4_output_name = "sl4.plot.data",
+  har_output_name = "har.plot.data",
+  macro_output_name = "GTAPMacro"
+)
+</code></pre>
+</div>
+
+<div id="advanced" class="code-box">
+  <p>This function is an advanced mode for fully configuring everything within the function itself.  
+<strong>You must define all parameters manually. See <code>?auto_gtap_data</code> for details.</strong></p>
+  
+  <pre><code>
+# See ?auto_gtap_data
+
+auto_gtap_data(
+  # Input Main File Names
+  experiment = experiment, 
+  
+  # Input File Suffixes
+  sl4_suffix = sl4_suffix,
+  har_suffix = har_suffix,
+  
+  # Directories
+  input_path = input.folder,
+  output_path = output.folder,
+  
+  # Variable Selection
+  process_sl4_vars = sl4map, 
+  process_har_vars = harmap,
+  
+  # Description and Unit Mapping (if `mapping_info` is set to "Yes" or "Mix")
+  mapping_info = mapping_info,
+  sl4_mapping_info = sl4map,
+  har_mapping_info = harmap,
+  rename_columns = rename_columns,
+  
+  # Convert units (see `?convert_units`)
+  sl4_convert_unit = sl4_convert_unit,
+  har_convert_unit = har_convert_unit,
+  
+  # Region and Sector Filtering
+  region_select = selected_regions,
+  sector_select = selected_sector,
+  
+  # Data Extraction Process
+  sl4_extract_method = sl4_extract_method,
+  har_extract_method = har_extract_method,
+  subtotal_level = subtotal_level,
+  
+  # If using `"group_data_by_dims"`, a `priority_list` is required. See `?HARplus::group_data_by_dims`.
+  sl4_priority = sl4_priority,
+  har_priority = har_priority,
+  
+  # Adding Scenario Ranking
+  add_scenario_ranking = add_scenario_ranking,
+  
+  # Output Formats
+  plot_data = plot_data,
+  output_formats = list(
+    "csv" = csv.output,
+    "stata" = stata.output,
+    "rds" = r.output,
+    "txt" = txt.output
+  ),
+  
+  # Output Names for Plot Data
+  sl4_output_name = "sl4.plot.data",
+  har_output_name = "har.plot.data",
+  macro_output_name = "GTAPMacro"
+)
+  </code></pre>
+</div>
+
+</div>
+
+<script>
+  const selectAutoGTAP = document.getElementById("AutoGTAPData");
+  const boxesComparison = document.querySelectorAll(".code-group-AutoGTAP .code-box");
+
+  function showAutoGTAP() {
+    boxesComparison.forEach(box => box.style.display = "none");
+    const selected = selectAutoGTAP.value;
+    const box = document.getElementById(selected);
+    if (box) box.style.display = "block";
+  }
+
+  selectAutoGTAP.addEventListener("change", showAutoGTAP);
+  showAutoGTAP();
+</script>
+<!-- END -->
+</details>
+<script>
+// SCRIPT 1: Copy Code Button
+window.addEventListener("load", function () {
+  document.querySelectorAll("pre code").forEach(function (codeBlock) {
+    const button = document.createElement("button");
+    button.className = "copy-code-button";
+    button.type = "button";
+    button.innerText = "Copy";
+    button.style.position = "absolute";
+    button.style.top = "4px";
+    button.style.right = "4px";
+
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        button.innerText = "Copied!";
+        button.classList.add("copied");
+        setTimeout(() => {
+          button.innerText = "Copy";
+          button.classList.remove("copied");
+        }, 1500);
+      });
+    });
+
+    const pre = codeBlock.parentNode;
+    pre.style.position = "relative";
+    pre.insertBefore(button, codeBlock);
+  });
+});
+
+// SCRIPT 2: Hide Navbar on Scroll Down
+document.addEventListener("DOMContentLoaded", function () {
+  let prevScrollPos = window.pageYOffset;
+  const navbar = document.querySelector(".navbar");
+  
+  if (navbar) {
+    // Set initial styles for smooth transition
+    navbar.style.transition = "top 0.3s";
+    navbar.style.position = "fixed";
+    navbar.style.width = "100%";
+    navbar.style.zIndex = "1000";
+    
+    window.addEventListener("scroll", function () {
+      const currentScrollPos = window.pageYOffset;
+      if (prevScrollPos > currentScrollPos) {
+        // Scrolling up
+        navbar.style.top = "0";
+      } else {
+        // Scrolling down
+        navbar.style.top = "-70px";
+      }
+      prevScrollPos = currentScrollPos;
+    });
+  }
+});
+
+// SCRIPT 3: Center Navbar Items
+document.addEventListener('DOMContentLoaded', function() {
+  // Create a container to center the navbar items
+  var navbar = document.querySelector('.navbar-collapse');
+  var navLinks = document.querySelectorAll('.navbar-left li');
+  var navRight = document.querySelector('.navbar-right');
+  
+  // Apply styles to center the main navigation
+  if (navbar && navLinks.length > 0) {
+    var mainNav = document.querySelector('.navbar-left');
+    
+    // Add a wrapper div to center the main nav
+    var centerWrapper = document.createElement('div');
+    centerWrapper.className = 'nav-center-wrapper';
+    centerWrapper.style.display = 'flex';
+    centerWrapper.style.justifyContent = 'center';
+    centerWrapper.style.flex = '1';
+    
+    // Move the main navbar inside this wrapper
+    if (mainNav && mainNav.parentNode) {
+      mainNav.parentNode.insertBefore(centerWrapper, mainNav);
+      centerWrapper.appendChild(mainNav);
+    }
+  }
+});
+</script>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

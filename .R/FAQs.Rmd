@@ -1,0 +1,429 @@
+---
+title: "GTAPViz FAQs"
+output: html_document
+---
+
+This document provides a list of frequently asked questions (FAQs) and their corresponding solutions related to the **GTAPViz** package. Users can identify relevant issues and run the suggested solutions by copying and pasting the code into their R script and run!
+
+
+# Package Help
+
+<div class="info-box">
+<strong> [ChatGPT Assistant for GTAPViz](https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r) </strong> 
+</div>
+
+Many helpful functions—such as how to rename values or columns—are not covered in this brief README.  
+For detailed instructions, please refer to the comprehensive guides and vignettes included with the package.
+
+
+1. [Comprehensive Manuscript](https://bodysbobb.github.io/GTAPViz/)
+
+- Click on the "Vignettes" tab to select a document:
+  - Comprehensive Manuscript: Step-by-step instructions starting from the setup directory  
+  - Advanced Plot Configuration and Outputs: Focused on plot configurations and output formats  
+  - Advanced Table Configuration and Outputs: Focused on table configurations and output formats  
+  
+2. [R Manual](https://github.com/Bodysbobb/GTAPViz/blob/main/inst/GTAPViz.pdf)
+
+3. [Function Index](https://bodysbobb.github.io/GTAPViz/reference/index.html)
+
+
+# Install GTAPViz for the first time
+```{r first-install, eval=FALSE}
+# Install devtools if not already installed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools") 
+}
+
+# Install GTAPViz from GitHub and load the package
+devtools::install_github("Bodysbobb/GTAPViz")
+require(GTAPViz)
+
+# Check the version of GTAPViz
+packageVersion("GTAPViz")
+```
+
+
+# Undefined Functions 
+
+<span class="common-issue">Common Issue:</span> 
+
+- When running the code, an error indicates unused arguments or parameters, or an old version of the package is detected.
+
+**Note:** 
+This code will clear all R objects in the environment, so make sure to save your work before running it.
+
+## Solution 1 {.unnumbered}
+
+Try force-reinstalling the updated version of `GTAPViz`.  
+If R prompts you to update any packages during the installation, it is recommended to choose "All":
+```{r old-version, eval=FALSE}
+# Clear all
+rm(list = ls())
+
+# Install devtools if not already installed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+
+# Force reinstallation of the latest version from GitHub
+devtools::install_github("Bodysbobb/GTAPViz", force = TRUE)
+require(GTAPViz)
+
+# Check the version of GTAPViz
+packageVersion("GTAPViz")
+```
+
+## Solution 2 {.unnumbered}
+
+If Solution 1 does not work, try removing the current version of 'GTAPViz' and reinstalling it:
+
+1. Restart your R session (close and reopen R), or go to **Session > Restart R** in RStudio.
+
+2. Reinstall the package using the following code:
+
+```{r old-version-delete, eval=FALSE}
+# Clear all
+rm(list = ls())
+
+remove.packages("GTAPViz")
+
+# Force reinstallation of the latest version from GitHub
+devtools::install_github("Bodysbobb/GTAPViz", force = TRUE)
+require(GTAPViz)
+
+# Check the version of GTAPViz
+packageVersion("GTAPViz")
+```
+
+
+# Get Empty Outputs
+
+<span class="common-issue">Common Issue:</span>
+
+- Returns empty outputs when running the code.
+
+## Solution 1 {.unnumbered}
+
+- Check the "OutputMapping.xlsx" file in the `/map` folder. Make sure that all three sheets are well defined, and verify that the specified "Variables", "Regions", and "Sectors" exist in the input files.
+  
+- Check the project directory to ensure it includes the `/in` folder, and confirm that all input file names listed in the `experiment` file are correctly defined and match the actual input filenames.
+  
+- Check the variables (and other names) in the input files (`.sl4` and `.har`). Ensure that they exactly match the names defined in the "OutputMapping.xlsx" file (note: names are case-sensitive).
+
+## Solution 2 {.unnumbered}
+
+If you have tried all steps in Solution 1 but are still getting empty outputs, try running the following code to clear all R objects in the environment and attempt to re-extract all variables (this may take some time):
+
+```{r empty-output, eval=FALSE}
+# Define 
+project.folder <- "D:/One Drive/OneDrive - purdue.edu/GTAPViz Data/users"
+experiment <- c("IncreaseTar10", "IncreaseTar50", "ReduceTar20")
+
+
+# DO NOT CHANGE BELOW THIS LINE
+
+## Checking Folders
+input.folder <- paste0(project.folder, "/in")
+map.folder <- paste0(project.folder, "/map")
+
+# Function to check and report folder existence
+check_folder <- function(folder.name, folder.path) {
+  if (!dir.exists(folder.path)) {
+    message(paste0("❌ '", folder.name, "' does NOT exist at: ", folder.path))
+  }
+}
+
+# Check each folder
+check_folder("input.folder", input.folder)
+check_folder("map.folder", map.folder)
+
+# Check input files
+if (dir.exists(input.folder)) {
+  files <- list.files(input.folder, pattern = "\\.(sl4|har)$", ignore.case = TRUE, full.names = FALSE)
+  if (length(files) > 0) {
+    cat("Available files:", paste(files, collapse = ","), "\n")
+  }
+}
+
+# Extract Data
+auto_gtap_data(
+  experiment = experiment,
+  process_sl4_vars = NULL, 
+  process_har_vars = NULL,
+  mapping_info = "GTAPv7",
+  sl4_mapping_info = NULL,
+  har_mapping_info = NULL,
+  sl4_convert_unit = NULL,
+  har_convert_unit = NULL,
+  region_select = NULL,
+  sector_select = NULL,
+  subtotal_level = FALSE,
+  input_path = input.folder,
+  map_path = map.folder,
+  sl4_extract_method = "get_data_by_var",
+  har_extract_method = "get_data_by_var",
+  subtotal_level = TRUE,
+  plot_data = TRUE,
+  output_formats = list(
+    "csv" = "no",
+    "stata" = "no",
+    "rds" = "no",
+    "txt" = "no"))
+```
+
+## Solution 3 {.unnumbered}
+
+1. Once the solution 2 is complete, check whether `sl4.plot.data` and `har.plot.data` appear in your R environment.  
+   If they do, it means the extraction was successful using default settings. In that case, the root of the problem may be a mismatch when filtering data by "Variable", "Region", or "Sector" in the **OutputMapping.xlsx** file.
+
+   - Other potential issues may include:
+
+     - The data extraction method used in your code. Try modifying it as follows:
+       - `sl4_extract_method = "get_data_by_var"`
+       - `har_extract_method = "get_data_by_var"`
+     
+     - Your model includes `subtotal_effects`, but this was not enabled. Add this line to your code:
+       - `subtotal_level = TRUE`
+
+2. If the output is still empty, try reinstalling the package.
+
+3. After reinstalling, if the issue persists, try importing the raw data directly using the `HARplus` package.  
+   For more details, see: https://bodysbobb.github.io/HARplus/articles/introduction.html
+
+
+# Plot Dimensions
+
+<span class="common-issue">Common Issue:</span>
+
+- The plot output is not aesthetically pleasing—too dense, too small, or too large.
+
+- The plot dimensions do not match expectations.
+
+## Solution 1 {.unnumbered}
+
+1. Adjust the `width` and `height` parameters in the following code.
+```{r plot-dim, eval=FALSE}
+my_export_config <- create_export_config(
+  width = 10, # Width in inches
+  height = 6, # Height in inches
+  dpi = 300, # Resolution in dots per inch
+  units = "in" # Units for width and height
+)
+```
+
+2. Pass the customized `my_export_config` to your plot function, while keeping all other settings (`...`) unchanged, as shown in the example below:
+```{r plot-dim-pass, eval=FALSE}
+comparison_plot(...,
+                export_config = my_export_config
+                )
+```
+
+# Plot Order and Rearrangement
+
+<span class="common-issue">Common Issue:</span>
+
+- Want to change the display order in plots, such as showing `EXP2` before `EXP1`, or `SEAsia` before `Oceania`.
+
+To customize the sorting, use the following command:
+
+```{r Sorting Data Function, eval = FALSE}
+# Using the function
+sort_sl4_plot <- sort_plot_data(
+  sl4.plot.data,
+  sort_columns = list(
+    Experiment = c("EXP2", "EXP1"), # Column Name = Sorting Order
+    Region = c("SEAsia", "Oceania")
+    ),
+  sort_by_value_desc = NULL
+)
+```
+
+<details>
+  <summary class="toggle-summary">💡 Tip</summary>
+
+  <div class="tip-box">
+    This will:
+    <ul>
+      <li>Sort by multiple columns simultaneously for precise output control</li>
+      <li>Apply consistent sorting across all data frames within a data list</li>
+    </ul>
+  </div>
+
+</details>
+
+
+# Missing Plot Outputs
+
+## Solution 1 {.unnumbered}
+
+Ensure that the export parameters are set to `TRUE` in the plot function:
+
+```{r, eval=FALSE}
+comparison_plot(...,
+                 export_picture = TRUE,
+                 export_as_pdf = "merged") # (merged will combine all plots into one PDF file)
+```
+
+
+## Solution 2 {.unnumbered}
+
+- Make sure you have defined the correct `output_path` in the plot function.  
+- Check the R console to see if any errors occurred while generating the plots. If the plot was successfully created and saved, the R console should indicate the output directory.  
+- If it still doesn't work, try changing the directory to a local folder. Sometimes, issues occur due to directory permissions or cloud-synced folders.  
+- Restart the R session and try again.
+
+
+# Convert Different Units
+
+<span class="common-issue">Common Issue:</span>
+
+- The data units are not in the desired format.  
+- Monetary values are in units other than USD.  
+- You want to convert specific units that are not automatically handled.
+
+## Solution:
+
+You can convert all units across all data frames within the data list by using the following code:
+
+```{r Converting Unit, eval = FALSE}
+your_data <- sl4.plot.data   # Change this to your data list name
+
+your_data <- convert_units(change_unit_from = c("BAHT", "million USD"),
+                           change_unit_to = c("USD", "billion USD"),
+                           adjustment = c("*34.5", "/1000"))
+```
+
+<details>
+  <summary class="toggle-summary">Explanation</summary>
+  
+  <div class="tip-box">
+
+**What does this code do?**
+
+- Converts `BAHT` to `USD` by multiplying the values by 34.5.  
+
+- Converts `million USD` to `billion USD` by dividing the values by 1,000.  
+
+**Parameters:**
+
+- `change_unit_from`: The original unit name to be changed in the `"Unit"` column.  
+  If your dataset does not yet include a `"Unit"` column, please refer to [adding unit and description columns](#sec:add-info).
+
+- `change_unit_to`: The new unit name to be recorded in the `"Unit"` column.  
+
+- `adjustment`: The mathematical operation used to transform the values.  
+  Accepts operators such as `/`, `*`, `+`, or `-`.
+
+  </div>
+</details>
+
+
+# Missing Unit and Description {#sec:add-info}
+
+<span class="common-issue">Common Issue:</span>
+
+- Missing `"Description"` and `"Unit"` columns in the data list.
+
+- The `"Description"` and `"Unit"` columns are not correctly defined for each variable.
+
+## Solution 1 {.unnumbered} 
+
+The easiest way is to re-run `1.ProjectSetup.R` file and ensure that you have define:
+
+- `OutputMapping.xlsx` file in the `/map` folder, specifically in column `"Description"` and `"Unit"` in sheet "SL4File" and "HARFile".
+
+- Make sure that you define the `mapping_info` parameter as `Yes` or `mix`
+
+```{r Add Info, eval = FALSE}
+mapping_df <- data.frame(
+  Variable = c("qgdp", "EV", "ppriv"),
+  Description = c("Real GDP Index", "Welfare Equivalents", "Consumer Price Index"),
+  Unit = c("Percent", "million USD", "percent"),
+  stringsAsFactors = FALSE
+)
+
+datasets <- add_mapping_info(mapping_df, external_map = mapping_df, mapping = "Yes")
+```
+
+**Note:** Use `?add_mapping_info` to understand the meaning of `mapping`.
+
+
+
+```{=html}
+<script>
+// SCRIPT 1: Copy Code Button
+window.addEventListener("load", function () {
+  document.querySelectorAll("pre code").forEach(function (codeBlock) {
+    const button = document.createElement("button");
+    button.className = "copy-code-button";
+    button.type = "button";
+    button.innerText = "Copy";
+    button.style.position = "absolute";
+    button.style.top = "4px";
+    button.style.right = "4px";
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        button.innerText = "Copied!";
+        setTimeout(() => (button.innerText = "Copy"), 1500);
+      });
+    });
+    const pre = codeBlock.parentNode;
+    pre.style.position = "relative";
+    pre.insertBefore(button, codeBlock);
+  });
+});
+
+// SCRIPT 2: Hide Navbar on Scroll Down
+document.addEventListener("DOMContentLoaded", function () {
+  let prevScrollPos = window.pageYOffset;
+  const navbar = document.querySelector(".navbar");
+  
+  if (navbar) {
+    // Set initial styles for smooth transition
+    navbar.style.transition = "top 0.3s";
+    navbar.style.position = "fixed";
+    navbar.style.width = "100%";
+    navbar.style.zIndex = "1000";
+    
+    window.addEventListener("scroll", function () {
+      const currentScrollPos = window.pageYOffset;
+      if (prevScrollPos > currentScrollPos) {
+        // Scrolling up
+        navbar.style.top = "0";
+      } else {
+        // Scrolling down
+        navbar.style.top = "-70px";
+      }
+      prevScrollPos = currentScrollPos;
+    });
+  }
+});
+
+// SCRIPT 3: Center Navbar Items
+document.addEventListener('DOMContentLoaded', function() {
+  // Create a container to center the navbar items
+  var navbar = document.querySelector('.navbar-collapse');
+  var navLinks = document.querySelectorAll('.navbar-left li');
+  var navRight = document.querySelector('.navbar-right');
+  
+  // Apply styles to center the main navigation
+  if (navbar && navLinks.length > 0) {
+    var mainNav = document.querySelector('.navbar-left');
+    
+    // Add a wrapper div to center the main nav
+    var centerWrapper = document.createElement('div');
+    centerWrapper.className = 'nav-center-wrapper';
+    centerWrapper.style.display = 'flex';
+    centerWrapper.style.justifyContent = 'center';
+    centerWrapper.style.flex = '1';
+    
+    // Move the main navbar inside this wrapper
+    if (mainNav && mainNav.parentNode) {
+      mainNav.parentNode.insertBefore(centerWrapper, mainNav);
+      centerWrapper.appendChild(mainNav);
+    }
+  }
+});
+</script>
+```

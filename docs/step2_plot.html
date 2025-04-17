@@ -793,7 +793,7 @@ default_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Commodity",      # Column used for the x-axis
   filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
-  split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
+  split_by                  = c("Region", "Variable"),         # Column(s) used to split data into separate plots (e.g., one plot per variable)
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
   top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
   invert_axis              = TRUE,             # Whether to invert the panel (facet) order
@@ -814,15 +814,16 @@ default_detail <- detail_plot(
   plot_style_config = create_plot_style(
     show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
-      type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
-      text = "Change in",
+      type = "dynamic",        # option: standard (default), prefix, suffix, full, dynamic
+      text = "{Region}: Change in {Description}",
       sep  = " - "
     ),
     positive_color = "#2E8B57",  # Color for positive values
     negative_color = "#CD5C5C",  # Color for negative values
     all_font_size  = 1.1,        # Scale for all font sizes in the plot 
     panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation
+    panel_cols     = NULL,        # Number of columns for the panel layout, NULL for automatic calculation
+    show_axis_titles_on_all_facets = FALSE     # To show label only at first panel 
   )
 )
 </code></pre>
@@ -867,7 +868,8 @@ oned_detail <- detail_plot(
     negative_color = "#CD5C5C",  # Color for negative values
     all_font_size  = 1.1,        # Scale for all font sizes in the plot 
     panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL,        # Number of columns for the panel layout, NULL for automatic calculation  
+    show_axis_titles_on_all_facets = FALSE     # To show label only at first panel 
   )
 )
 </code></pre>
@@ -912,7 +914,8 @@ twod_detail <- detail_plot(
     negative_color = "#CD5C5C",  # Color for negative values
     all_font_size  = 1.1,        # Scale for all font sizes in the plot 
     panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL,        # Number of columns for the panel layout, NULL for automatic calculation  
+    show_axis_titles_on_all_facets = FALSE     # To show label only at first panel 
   )
 )
   </code></pre>
@@ -959,16 +962,16 @@ threed_detail <- detail_plot(
     negative_color = "#CD5C5C",  # Color for negative values
     all_font_size  = 1.1,        # Scale for all font sizes in the plot 
     panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+    panel_cols     = NULL,        # Number of columns for the panel layout, NULL for automatic calculation  
+    show_axis_titles_on_all_facets = FALSE     # To show label only at first panel 
   )
 )
 </code></pre>
 </div>
 
 <div id="top_impact_detail" class="code-box">
-
-<p>This function is similar to the "Default" code, but adds <code>top_impact = 10</code> to automatically filter the top 10 most impacted sectors (e.g., <code>x_axis_from = "Commodity"</code>).</p>
-<pre><code>
+  <p>This function is similar to the "Default" code, but adds <code>top_impact = 10</code> to automatically filter the top 10 most impacted sectors (e.g., <code>x_axis_from = "Commodity"</code>).</p>
+  <pre><code>
 # For help function use: ?detail_plot
 ## You can change `top_impact` to any numeric value.
 detail.data <- sl4.plot.data[["COMM*REG"]]  # Replace with your actual dataframe
@@ -979,7 +982,7 @@ default_detail <- detail_plot(
   filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
   split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
-  top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
+  top_impact                = 10,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
   invert_axis              = TRUE,             # Whether to invert the panel (facet) order
   separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
   var_name_by_description   = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
@@ -991,7 +994,7 @@ default_detail <- detail_plot(
     # Output Configurations
     ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
     export_config = create_export_config(  
-    width  = 23,              # Width of the output plot in inches
+    width  = 20,              # Width of the output plot in inches
     height = 9                # Height of the output plot in inches
   ),
   
@@ -1004,12 +1007,13 @@ default_detail <- detail_plot(
     ),
     positive_color = "#2E8B57",  # Color for positive values
     negative_color = "#CD5C5C",  # Color for negative values
-    all_font_size  = 1.1,        # Scale for all font sizes in the plot 
+    all_font_size  = 1,        # Scale for all font sizes in the plot 
     panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation
+    panel_cols     = NULL,        # Number of columns for the panel layout, NULL for automatic calculation
+    show_axis_titles_on_all_facets = TRUE     # To show label only at first panel 
   )
 )
-</code></pre>
+  </code></pre>
 </div>
 
 <div id="advanced_detail" class="code-box">

@@ -853,8 +853,8 @@ oned_detail <- detail_plot(
   # Output Configurations
   ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
   export_config = create_export_config(
-    width  = 35,              # Width of the output plot in inches
-    height = 25               # Height of the output plot in inches
+    width  = 20,              # Width of the output plot in inches
+    height = 12               # Height of the output plot in inches
   ),
   
   plot_style_config = create_plot_style(
@@ -885,29 +885,29 @@ twod_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Commodity",     # Column used for the x-axis
   filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
-  split_by                  = "Variable",      # Column(s) used to split data into separate plots
+  split_by                  = c("Region","Variable"),      # Column(s) used to split data into separate plots
   panel_var                 = "Experiment",    # Column used for paneling (faceting)
   top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
   invert_axis              = TRUE,            # Whether to invert the panel (facet) order
   separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
   var_name_by_description   = TRUE,            # Use the description as the variable name
   add_var_info              = FALSE,           # Add variable code in parentheses
-  export_picture            = FALSE,           # Export the plots as image files
-  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  export_picture            = TRUE,           # Export the plots as image files
+  export_as_pdf             = "merged",           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
   output_path               = output.folder,
-
+  
   # Output Configurations
   ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly    
   export_config = create_export_config(
-    width  = 45,             # Width of the output plot in inches
-    height = 15              # Height of the output plot in inches
+    width  = 23,             # Width of the output plot in inches
+    height = 9              # Height of the output plot in inches
   ),
   
   plot_style_config = create_plot_style(
     show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
-      type = "prefix",       # option: standard (default), prefix, suffix, full, dynamic
-      text = "Change in",
+      type = "dynamic",       # option: standard (default), prefix, suffix, full, dynamic
+      text = "{Region}: Change in {Description}",
       sep  = " - "
     ),
     positive_color = "#2E8B57",  # Color for positive values
@@ -919,12 +919,12 @@ twod_detail <- detail_plot(
   )
 )
   </code></pre>
-  </div>
+</div>
   
 <div id="threed_detail" class="code-box">
   <p>This R script is designed for three-dimensional data plot like <code>qxs</code>. This example assumes that you chose to extract <code>qxs</code> during <strong>1.ProjectSetup</strong></p>
 
-<p><strong>Note:</strong> This code can be applied to any dimensional data by adding more columns to <code>split_by</code>.</p>
+  <p><strong>Note:</strong> This code can be applied to any dimensional data by adding more columns to <code>split_by</code>.</p>
   <pre><code>
 # For help function use: ?detail_plot
 detail.data <- bilateral_data[["qxs"]]   # Dataframe with three-dimensional data
@@ -940,15 +940,15 @@ threed_detail <- detail_plot(
   separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
   var_name_by_description   = TRUE,            # Use the description as the variable name
   add_var_info              = FALSE,           # Add variable code in parentheses
-  export_picture            = FALSE,           # Export the plots as image files
-  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  export_picture            = TRUE,           # Export the plots as image files
+  export_as_pdf             = "merged",           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
   output_path               = output.folder,
-
+  
   # Output Configurations
   ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly        
   export_config = create_export_config(
-    width  = 45,             # Width of the output plot in inches
-    height = 15              # Height of the output plot in inches
+    width  = 30,             # Width of the output plot in inches
+    height = 12              # Height of the output plot in inches
   ),
   
   plot_style_config = create_plot_style(
@@ -971,6 +971,8 @@ threed_detail <- detail_plot(
 
 <div id="top_impact_detail" class="code-box">
   <p>This function is similar to the "Default" code, but adds <code>top_impact = 10</code> to automatically filter the top 10 most impacted sectors (e.g., <code>x_axis_from = "Commodity"</code>).</p>
+  
+  <p><strong>Note:</strong> When using <code>top_impact</code>, it is highly recommended to set <code>sort_data_by_value = TRUE</code> to ensure consistent axis ordering across panels. This is because each panel may display different sectors based on the top impacts.</p>
   <pre><code>
 # For help function use: ?detail_plot
 ## You can change `top_impact` to any numeric value.
@@ -982,20 +984,20 @@ default_detail <- detail_plot(
   filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
   split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
-  top_impact                = 10,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
+  top_impact                = 5,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
   invert_axis              = TRUE,             # Whether to invert the panel (facet) order
   separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
   var_name_by_description   = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
   add_var_info              = FALSE,            # Add variable code in parentheses (e.g., Real GDP (qgdp))
-  export_picture            = FALSE,            # Export the plots as image files
-  export_as_pdf             = FALSE,            # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  export_picture            = TRUE,            # Export the plots as image files
+  export_as_pdf             = "merged",            # Export the plots as PDF. Use "merged" to combine all plots into one PDF
   output_path               = output.folder,
   
-    # Output Configurations
-    ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
-    export_config = create_export_config(  
+  # Output Configurations
+  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
+  export_config = create_export_config(  
     width  = 20,              # Width of the output plot in inches
-    height = 9                # Height of the output plot in inches
+    height = 8                # Height of the output plot in inches
   ),
   
   plot_style_config = create_plot_style(
@@ -1010,7 +1012,8 @@ default_detail <- detail_plot(
     all_font_size  = 1,        # Scale for all font sizes in the plot 
     panel_rows     = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
     panel_cols     = NULL,        # Number of columns for the panel layout, NULL for automatic calculation
-    show_axis_titles_on_all_facets = TRUE     # To show label only at first panel 
+    show_axis_titles_on_all_facets = TRUE,     # To show label of each panel separately 
+    sort_data_by_value = TRUE    # Sorting the plot by positive-negative impact
   )
 )
   </code></pre>
@@ -1224,16 +1227,16 @@ default_stack <- stack_plot(
   top_impact              = NULL,             # Optionally limit to top-N most impactful entries per panel
   invert_axis             = FALSE,            # Whether to invert the panel (facet) order
   separate_figure         = FALSE,            # Whether to generate a separate figure for each panel
-  var_name_by_description = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
+  var_name_by_description = FALSE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
   add_var_info            = FALSE,            # Add variable code in parentheses (e.g., Real GDP (qgdp))
-  export_picture          = FALSE,            # Export the plots as image files
-  export_as_pdf           = FALSE,            # Export the plots as PDF; use "merged" to combine all plots into one PDF
+  export_picture          = TRUE,            # Export the plots as image files
+  export_as_pdf           = "merged",            # Export the plots as PDF; use "merged" to combine all plots into one PDF
   output_path             = output.folder,
   
   # Output Configurations
   export_config = create_export_config(
-    width  = 28,            # Width of the output plot in inches
-    height = 15             # Height of the output plot in inches
+    width  = 20,            # Width of the output plot in inches
+    height = 12             # Height of the output plot in inches
   ),
   
   # Styling
@@ -1268,18 +1271,18 @@ default_unstack <- stack_plot(
   split_by                = "Region",         # Column(s) used to split data into separate plots
   panel_var               = "Experiment",     # Column used for paneling (faceting)
   top_impact              = NULL,             # Optionally limit to top-N most impactful entries per panel
-  invert_axis             = FALSE,            # Whether to invert the panel (facet) order
+  invert_axis             = TRUE,            # Whether to invert the panel (facet) order
   separate_figure         = FALSE,            # Whether to generate a separate figure for each panel
-  var_name_by_description = TRUE,             # Use the description as the variable name
+  var_name_by_description = FALSE,             # Use the description as the variable name
   add_var_info            = FALSE,            # Add variable code in parentheses
-  export_picture          = FALSE,            # Export the plots as image files
-  export_as_pdf           = FALSE,            # Export the plots as PDF; use "merged" to combine all plots into one PDF
+  export_picture          = TRUE,            # Export the plots as image files
+  export_as_pdf           = "merged",            # Export the plots as PDF; use "merged" to combine all plots into one PDF
   output_path             = output.folder,
 
   # Output Configurations
   export_config = create_export_config(
-    width  = 28,            # Width of the output plot in inches
-    height = 15             # Height of the output plot in inches
+    width  = 20,            # Width of the output plot in inches
+    height = 9             # Height of the output plot in inches
   ),
 
   # Styling
@@ -1293,7 +1296,8 @@ default_unstack <- stack_plot(
     color_tone    = "purdue",   # Color palette for the plot
     all_font_size = 1,          # Scale for all font sizes in the plot
     panel_rows    = 1,          # Number of rows for the panel layout; NULL for auto
-    panel_cols    = NULL        # Number of columns for the panel layout; NULL for auto
+    panel_cols    = NULL,       # Number of columns for the panel layout; NULL for auto
+    show_axis_titles_on_all_facets = FALSE
   )
 )
   </code></pre>

@@ -7,17 +7,11 @@
 [![GPT-GTAPViz](https://img.shields.io/badge/GPT--GTAPViz-74aa9c?style=flat-square&logo=openai&logoColor=white)](https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r/)
 [![GTAPViz](https://img.shields.io/badge/GTAPViz-276DC3?style=flat-square&logo=r&logoColor=white)](https://bodysbobb.github.io/GTAPViz/)
 
-
-This manual is designed for GTAP users. If you are looking for a comprehensive vignette, please visit [`GTAPViz`](https://bodysbobb.github.io/GTAPViz/).
-
-Use the navigation menu above to access each section:
-
-- File `1.ProjectSetup.R` corresponds to **1. Project Setup** in the navigation menu.
-- File `2.PlotGens.R` corresponds to **2. Plotting** in the navigation menu.
-- File `3.TableGens.R` corresponds to **3. Table** in the navigation menu.
-
+This manual is intended for GTAP users who will strictly follow the structure of the provided R scripts.  
 If you do not have the R script files, download the ZIP file here:  
 [GTAPViz-R-GTAPusers-code](https://github.com/Bodysbobb/GTAPViz-R-GTAPuser/blob/main/GTAPViz-GTAPusers.zip)
+
+For a comprehensive vignette, please visit [`GTAPViz`](https://bodysbobb.github.io/GTAPViz/).
 
 # IMPORTANT NOTE
 

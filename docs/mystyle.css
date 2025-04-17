@@ -1,30 +1,51 @@
 /* --- RESET & BASE TYPOGRAPHY --- */
-h1, h2, h3, h4, h5, h6 {
-  color: #003366;
-  font-weight: bold;
-}
 body {
   font-size: 18px;
   padding-top: 80px;
   counter-reset: fig-num package-plot-num package-table-num;
+  transition: padding-top 0.3s ease;
+  font-weight: 400;
+  line-height: 1.6;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #003366;
+  font-weight: bold;
+}
+
 h1 { font-size: 34px; }
-h2 { font-size: 28px; }
+h2 { 
+  font-size: 28px; 
+  margin-top: 2.5rem;
+}
 h3 { font-size: 24px; }
 h4 { font-size: 20px; }
 code, pre { font-size: 16px; }
-#TOC a { font-size: 20px; }
 
-
-/* --- MORE MARGIN BETWEEN H2 SECTIONS --- */
-h2 {
-  margin-top: 2.5rem;
+/* --- SECTION DIVIDERS --- */
+h1::before {
+  content: "";
+  display: block;
+  border-top: 1px solid #ccc;
+  margin: 40px 0 20px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+  border-radius: 0.5px;
 }
 
-/* --- TOC SPACING --- */
+/* --- TOC STYLING --- */
 #TOC {
   margin-top: 20px;
   padding-top: 15px;
+}
+
+#TOC a { 
+  font-size: 20px; 
+  font-weight: normal;
+}
+
+nav#TOC ul li a.is-active {
+  font-weight: bold !important;
+  color: #003366 !important;
 }
 
 /* --- FIGURE & TABLE CONTAINERS --- */
@@ -35,13 +56,16 @@ h2 {
   text-align: center;
   margin: 20px auto;
 }
+
 .package-figure, .package-table {
   counter-increment: package-plot-num package-table-num;
 }
+
 .package-figure figcaption::before {
   content: "Plot " counter(package-plot-num) ": ";
   font-weight: bold;
 }
+
 .package-table figcaption::before {
   content: "Table " counter(package-table-num) ": ";
   font-weight: bold;
@@ -56,6 +80,7 @@ h2 {
   background-color: #FAFAFA;
   display: inline-block;
   width: fit-content;
+  font-size: 14px !important;
 }
 
 /* --- FIGURE NOTES --- */
@@ -72,13 +97,14 @@ h2 {
   border-collapse: collapse;
   width: 100%;
 }
+
 .table-box th, .table-box td {
   border: 1px solid #ABB2BF;
   padding: 8px;
   text-align: left;
 }
 
-/* --- TIP / INFO / NOTE BOXES --- */
+/* --- INFO BOXES --- */
 .tip-box {
   background-color: #E8F4FD;
   border-left: 5px solid #5B9BD5;
@@ -87,6 +113,7 @@ h2 {
   border-radius: 4px;
   font-size: 16px;
 }
+
 .info-box {
   background-color: #FDF8E4;
   border-left: 5px solid #E8A317;
@@ -98,7 +125,8 @@ h2 {
   color: #5C3D00;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
-.note-box {
+
+.note-box, details.note-box {
   background-color: #F7F7F7;
   border-left: 4px solid #999;
   padding: 12px 16px;
@@ -109,6 +137,7 @@ h2 {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* --- FOLDER TREE --- */
 .folder-tree {
   background-color: #FAFAFA;
   border: 1px solid #ccc;
@@ -125,13 +154,11 @@ h2 {
   position: relative;
 }
 
-/* Hide any automatic copy buttons */
 .folder-tree .copy-code-button,
 .folder-tree pre::after {
   display: none !important;
 }
 
-/* Remove inner pre/code styles */
 .folder-tree pre,
 .folder-tree code {
   background: none !important;
@@ -149,10 +176,12 @@ h2 {
   cursor: pointer;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .toggle-summary {
   color: #F2A900;
   background-color: #003366;
 }
+
 .toggle-code-summary {
   font-family: monospace;
   font-size: 15px;
@@ -181,20 +210,12 @@ h2 {
   display: list-item;  /* Keep arrow */
 }
 
-
-details.note-box {
-  background-color: #F7F7F7;
-  border-left: 4px solid #999;
-  padding: 12px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #333;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+/* --- R CODE CHUNK STYLING --- */
+pre {
+  position: relative;
+  margin-top: 0.9rem !important;
+  margin-bottom: 1.5rem !important;
 }
-
-/* R Code Chunk Style */
-pre { position: relative; }
 
 pre.r {
   position: relative;
@@ -205,7 +226,7 @@ pre.r {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
+  font-size: 14px !important;
   white-space: pre;
   overflow: visible !important;  /* KEY: allow ::before to show outside */
   z-index: 0;
@@ -244,27 +265,11 @@ hr {
   margin: 2rem 0;
 }
 
-
-/* --- SECTION DIVIDER UNDER H1 HEADINGS --- */
-h1::after {
-  content: "";
-  display: block;
-  border-top: 1px solid #ccc;
-  margin: 20px 0 0 0;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
-  border-radius: 0.5px;
-}
-
 /* --- COMMON ISSUE STYLE --- */
 .common-issue {
   font-weight: bold;
   color: #8B0000;  /* dark red */
   font-size: 100%;
-}
-
-/* --- SMALLER FONT FOR CODE BOXES AND R CHUNKS --- */
-.code-box, .table-box, pre, code {
-  font-size: 14px !important;
 }
 
 /* --- COPY BUTTON --- */
@@ -292,217 +297,157 @@ h1::after {
 .copy-code-button.copied {
   background-color: #F2A900 !important;
   color: #003366 !important;
-}
-
-
-.copy-code-button:hover {
-  transform: scale(1.08);        /* Zoom on hover */
-}
-
-/* When copy succeeds — set this class via JS */
-.copy-code-button.copied {
-  background-color: #F2A900 !important;  /* Gold background */
-  color: #003366 !important;             /* Navy text */
   transform: scale(1.1);
 }
 
-
-/* --- TOC FLOAT: BOLD ACTIVE MAIN HEADERS ONLY --- */
-nav#TOC ul li a[href^="#"]:not([href*="#section"]) {
-  font-weight: normal;
-}
-nav#TOC ul li a.is-active {
-  font-weight: bold;
-}
-
-
-/* --- SECTION DIVIDER ABOVE H1 HEADINGS (MAIN SECTION START) --- */
-h1::before {
-  content: "";
-  display: block;
-  border-top: 1px solid #ccc;
-  margin: 40px 0 20px 0;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
-  border-radius: 0.5px;
-}
-
-/* --- TOC FLOAT: BOLD ACTIVE MAIN TOPIC (# headers only) --- */
-nav#TOC ul li a {
-  font-weight: normal;
-}
-nav#TOC ul li a.is-active {
-  font-weight: bold !important;
-  color: #003366 !important;
-}
-
-
-
-/* --- NAVBAR ACTIVE & HOVER LINK STYLES --- */
-.navbar a {
-  font-weight: normal;
-  color: white !important;
-  text-decoration: none;
-  position: relative;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-.navbar a.active,
-.navbar a.is-active {
-  font-weight: bold;
-  color: #1C3E5D;
-}
-
-
-
-/* --- SECTION DIVIDER ABOVE H1 HEADINGS (MAIN SECTION START) --- */
-h1::before {
-  content: "";
-  display: block;
-  border-top: 1px solid #ccc;
-  margin: 40px 0 20px 0;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
-  border-radius: 0.5px;
-}
-
-/* --- REMOVE ANY EXISTING DIVIDER BELOW H1 --- */
-h1::after {
-  display: none !important;
-}
-
-/* --- TOC FLOAT: BOLD ACTIVE MAIN TOPIC (# headers only) --- */
-nav#TOC ul li a {
-  font-weight: normal;
-}
-nav#TOC ul li a.is-active {
-  font-weight: bold !important;
-  color: #003366 !important;
-}
-
-/* --- EXTRA MARGIN BELOW R CHUNK OUTPUTS --- */
-pre {
-  margin-top: 0.9rem !important;
-  margin-bottom: 1.5rem !important;
-}
-
-/* --- NAVBAR ACTIVE & HOVER LINK STYLES --- */
-.navbar a {
-  font-weight: normal;
-  color: white !important;
-  text-decoration: none !important;
-}
-.navbar a:hover {
-  color: #F2A900 !important;
-  text-decoration: underline !important;
-}
-.navbar-nav > li > a.active:not(.chatgpt-link),
-.navbar-nav > li.active > a:not(.chatgpt-link),
-.navbar a.is-active:not(.chatgpt-link) {
-  font-weight: bold !important;
-  color: #F2A900 !important;
-  background: none !important;
-  text-decoration: none !important;
-}
-
-
-/* === CLEAN & FIXED NAVBAR STYLING === */
-
-/* Fixed-position top navbar */
+/* === FIXED NAVBAR STYLING === */
+/* Basic responsive navbar styles */
 .navbar {
-  background-color: #003366 !important; /* GTAP blue */
+  background-color: #003366 !important;
   color: white !important;
-  transition: top 0.3s ease;
   position: fixed;
+  top: 0;
   width: 100%;
   z-index: 1000;
-  top: 0;
 }
 
-/* Core navbar alignment using Flexbox */
-.navbar-collapse {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
+/* Navbar links */
+.navbar a {
+  color: white !important;
+  text-decoration: none;
 }
 
-/* Center-align left-side nav items */
-.navbar-nav {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin: 0 auto !important;
+.navbar a:hover {
+  color: #F2A900 !important;
 }
 
-/* Spacing between menu items */
-.navbar-nav > li {
-  margin-right: 10px;
+/* Fix for active navbar item - make it just bold text without background */
+.navbar-nav > li > a.active,
+.navbar-nav > li.active > a,
+.navbar a.is-active,
+.navbar li.active a {
+  font-weight: bold !important;
+  color: #F2A900 !important;
+  background-color: transparent !important;
+  background: none !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
-/* Right-align ChatGPT button */
-.navbar-right {
-  display: flex !important;
-  align-items: center !important;
-  margin-left: auto !important;
-  white-space: nowrap;
+/* Additional specificity for Bootstrap's typical active classes */
+.navbar .nav-item.active .nav-link,
+.navbar .nav-link.active,
+.navbar .active > .nav-link {
+  font-weight: bold !important;
+  color: #F2A900 !important;
+  background-color: transparent !important;
+  background: none !important;
 }
 
-/* ChatGPT button appearance */
+/* Fix for the project setup style specifically */
+.navbar #project-setup-link.active,
+.navbar a[href*="project-setup"].active,
+.navbar li.active a[href*="project-setup"] {
+  background-color: transparent !important;
+  background: none !important;
+  font-weight: bold !important;
+  color: #F2A900 !important;
+}
+
+/* ChatGPT special button */
 .navbar-nav > li > a.chatgpt-link,
 .navbar-nav > li > a[href*="chatgpt.com"] {
   background-color: #F2A900 !important;
   color: black !important;
-  font-weight: bold !important;
-  padding: 10px 15px !important;
-  border-radius: 4px !important;
-  display: inline-block !important;
-  vertical-align: middle !important;
-  line-height: 20px !important;
-  transition: background-color 0.2s ease;
-  margin-top: 6px !important;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-top: 5px;
 }
 
-/* Hover effect for ChatGPT button */
-.navbar-nav > li > a.chatgpt-link:hover,
-.navbar-nav > li > a[href*="chatgpt.com"]:hover {
-  background-color: #002552 !important;
-  color: white !important;
-  text-decoration: none !important;
+/* DESKTOP STYLES */
+@media (min-width: 769px) {
+  .navbar-collapse {
+    display: flex !important;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-right: 15px;
+  }
+  
+  .navbar-toggler {
+    display: none !important;
+  }
 }
 
-/* Adjust body space for fixed navbar */
-body {
-  padding-top: 70px;
-  transition: padding-top 0.3s ease;
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+  /* Hide navbar by default on mobile */
+  .navbar-collapse {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    padding: 0;
+  }
+  
+  /* Show navbar when toggled */
+  .navbar-collapse.show {
+    display: block !important;
+  }
+  
+  /* Style the navbar items in mobile view */
+  .navbar-nav {
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-nav .nav-item {
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin: 0;
+  }
+  
+  .navbar-nav .nav-item > a {
+    padding: 15px;
+    display: block;
+    width: 100%;
+  }
+  
+  /* Toggle button styling */
+  .navbar-toggler {
+    display: block !important;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 10px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  
+  .navbar-toggler .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: white !important;
+    margin: 4px 0;
+  }
+  
+  /* Full-width ChatGPT button on mobile */
+  .navbar-nav > li > a.chatgpt-link,
+  .navbar-nav > li > a[href*="chatgpt.com"] {
+    width: calc(100% - 30px);
+    margin: 10px 15px;
+    text-align: center;
+  }
 }
-body.navbar-hidden {
-  padding-top: 0;
-}
-
-/* Center wrapper if using JS to wrap navbar-left */
-.nav-center-wrapper {
-  display: flex !important;
-  justify-content: center !important;
-  flex: 1 !important;
-}
-
-/* Vertical alignment of all nav items */
-.navbar-nav > li > a {
-  padding-top: 15px !important;
-  padding-bottom: 15px !important;
-  line-height: 20px !important;
-  background: none !important;
-  color: white !important;
-  font-weight: normal !important;
-  text-decoration: none !important;
-  transition: color 0.2s ease;
-}
-
-/* === GTAPViz NAVBAR FONT SETTING === */
-.navbar,
-.navbar a,
-.navbar-nav > li > a {
-  font-family: Arial, sans-serif !important;
-}
-

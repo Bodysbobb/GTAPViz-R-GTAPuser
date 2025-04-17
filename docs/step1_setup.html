@@ -942,41 +942,54 @@ document.addEventListener("DOMContentLoaded", function () {
     
     window.addEventListener("scroll", function () {
       const currentScrollPos = window.pageYOffset;
-      if (prevScrollPos > currentScrollPos) {
-        // Scrolling up
-        navbar.style.top = "0";
+      
+      // Only apply hide/show behavior on larger screens
+      if (window.innerWidth > 768) {
+        if (prevScrollPos > currentScrollPos) {
+          // Scrolling up
+          navbar.style.top = "0";
+        } else {
+          // Scrolling down
+          navbar.style.top = "-70px";
+        }
       } else {
-        // Scrolling down
-        navbar.style.top = "-70px";
+        // On mobile, always show the navbar
+        navbar.style.top = "0";
       }
+      
       prevScrollPos = currentScrollPos;
     });
   }
 });
 
-// SCRIPT 3: Center Navbar Items
-document.addEventListener('DOMContentLoaded', function() {
-  // Create a container to center the navbar items
-  var navbar = document.querySelector('.navbar-collapse');
-  var navLinks = document.querySelectorAll('.navbar-left li');
-  var navRight = document.querySelector('.navbar-right');
+// SCRIPT 3: Enhanced Mobile Menu Handling
+// Simple Navbar Toggle for Mobile
+document.addEventListener("DOMContentLoaded", function() {
+  // Get the toggle button and navbar collapse element
+  const toggleButton = document.querySelector('.navbar-toggler');
+  const navbarCollapse = document.querySelector('.navbar-collapse');
   
-  // Apply styles to center the main navigation
-  if (navbar && navLinks.length > 0) {
-    var mainNav = document.querySelector('.navbar-left');
+  // Add click event to toggle button
+  if (toggleButton && navbarCollapse) {
+    toggleButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Toggle the show class
+      if (navbarCollapse.classList.contains('show')) {
+        navbarCollapse.classList.remove('show');
+      } else {
+        navbarCollapse.classList.add('show');
+      }
+    });
     
-    // Add a wrapper div to center the main nav
-    var centerWrapper = document.createElement('div');
-    centerWrapper.className = 'nav-center-wrapper';
-    centerWrapper.style.display = 'flex';
-    centerWrapper.style.justifyContent = 'center';
-    centerWrapper.style.flex = '1';
-    
-    // Move the main navbar inside this wrapper
-    if (mainNav && mainNav.parentNode) {
-      mainNav.parentNode.insertBefore(centerWrapper, mainNav);
-      centerWrapper.appendChild(mainNav);
-    }
+    // Close navbar when clicking outside
+    document.addEventListener('click', function(e) {
+      if (navbarCollapse.classList.contains('show') && 
+          !navbarCollapse.contains(e.target) && 
+          !toggleButton.contains(e.target)) {
+        navbarCollapse.classList.remove('show');
+      }
+    });
   }
 });
 </script>

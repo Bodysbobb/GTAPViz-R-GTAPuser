@@ -8,8 +8,7 @@
 [![GTAPViz](https://img.shields.io/badge/GTAPViz-276DC3?style=flat-square&logo=r&logoColor=white)](https://bodysbobb.github.io/GTAPViz/)
 
 **This manual is intended for GTAP users who will strictly follow the structure of the provided R scripts.**  
-If you do not have the R script files, download the ZIP file here:  
-[GTAPViz-R-GTAPusers-code](https://github.com/Bodysbobb/GTAPViz-R-GTAPuser/blob/main/GTAPViz-GTAPusers.zip)
+If you do not have the R script files, download the ZIP file here: [GTAPViz-R-GTAPusers-code](https://github.com/Bodysbobb/GTAPViz-R-GTAPuser/blob/main/GTAPViz-GTAPusers.zip)
 
 For a comprehensive vignette and the full package intended for non-GTAP users, please visit [`GTAPViz`](https://bodysbobb.github.io/GTAPViz/).
 

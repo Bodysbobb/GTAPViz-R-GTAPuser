@@ -3,6 +3,11 @@
 
 ![License](https://img.shields.io/github/license/Bodysbobb/GTAPViz-R-GTAPuser)
 
+**Package Help:**  
+[![GPT-GTAPViz](https://img.shields.io/badge/GPT--GTAPViz-74aa9c?style=flat-square&logo=openai&logoColor=white)](https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r/)
+[![GTAPViz](https://img.shields.io/badge/GTAPViz-276DC3?style=flat-square&logo=r&logoColor=white)](https://bodysbobb.github.io/GTAPViz/)
+
+
 This manual is designed for GTAP users. If you are looking for a comprehensive vignette, please visit [`GTAPViz`](https://bodysbobb.github.io/GTAPViz/).
 
 Use the navigation menu above to access each section:

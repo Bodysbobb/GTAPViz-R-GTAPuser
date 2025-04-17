@@ -1,5 +1,6 @@
 # Introduction
-[![Author](https://img.shields.io/badge/Pattawee.P-blue?label=Author)](https://bodysbobb.github.io/)
+[![Author](https://img.shields.io/badge/Pattawee.P-blue?label=Author)](https://bodysbobb.github.io/) ![Last Updated](https://img.shields.io/github/last-commit/Bodysbobb/GTAPViz?label=Last%20Updated&color=blue)
+
 ![License](https://img.shields.io/github/license/Bodysbobb/GTAPViz-R-GTAPuser)
 
 This manual is designed for GTAP users. If you are looking for a comprehensive vignette, please visit [`GTAPViz`](https://bodysbobb.github.io/GTAPViz/).

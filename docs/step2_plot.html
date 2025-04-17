@@ -1212,41 +1212,41 @@ adv.detail.plot <- detail_plot(
 # For help function use: ?stack_plot
 stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
 
-stack_plot(
-  data                      = stack.data,
-  x_axis_from               = "Region",        # Column used for the x-axis
-  filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
-  stack_value_from          = "COLUMN",        # Column that defines the components of the stack plot
-  show_total                = TRUE,            # Show the total value label in the stack plot
-  unstack_plot              = FALSE,           # If TRUE, unstack the bars and display them separately (comparison style)
-  split_by                  = FALSE,           # Column(s) used to split data into separate plots. FALSE disables splitting
-  panel_var                 = "Experiment",    # Column used for paneling (faceting)
-  top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
-  invert_axis              = FALSE,           # Whether to invert the panel (facet) order
-  separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
-  var_name_by_description   = TRUE,            # Use the description as the variable name (e.g., qgdp becomes Real GDP)
-  add_var_info              = FALSE,           # Add variable code in parentheses (e.g., Real GDP (qgdp))
-  export_picture            = FALSE,           # Export the plots as image files
-  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
-  output_path               = output.folder,
+default_stack <- stack_plot(
+  data                    = stack.data,
+  x_axis_from             = "Region",         # Column used for the x-axis
+  filter_var              = NULL,             # Optional column to filter data based on x-axis
+  stack_value_from        = "COLUMN",         # Column that defines the components of the stack plot
+  show_total              = TRUE,             # Show the total value label in the stack plot
+  unstack_plot            = FALSE,            # If TRUE, unstack the bars and display them separately
+  split_by                = FALSE,            # Column(s) used to split data into separate plots; FALSE disables splitting
+  panel_var               = "Experiment",     # Column used for paneling (faceting)
+  top_impact              = NULL,             # Optionally limit to top-N most impactful entries per panel
+  invert_axis             = FALSE,            # Whether to invert the panel (facet) order
+  separate_figure         = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description = TRUE,             # Use the description as the variable name (e.g., qgdp becomes Real GDP)
+  add_var_info            = FALSE,            # Add variable code in parentheses (e.g., Real GDP (qgdp))
+  export_picture          = FALSE,            # Export the plots as image files
+  export_as_pdf           = FALSE,            # Export the plots as PDF; use "merged" to combine all plots into one PDF
+  output_path             = output.folder,
   
   # Output Configurations
-  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
   export_config = create_export_config(
-    width  = 28,             # Width of the output plot in inches
-    height = 15              # Height of the output plot in inches
+    width  = 28,            # Width of the output plot in inches
+    height = 15             # Height of the output plot in inches
   ),
   
+  # Styling
   plot_style_config = create_plot_style(
     title_format = create_title_format(
-      type = "full",         # option: standard (default), prefix, suffix, full, dynamic
+      type = "full",        # Options: standard, prefix, suffix, full, dynamic
       text = "Welfare Decomposition",
       sep  = ""
     ),
-    color_tone    = "purdue",   # Color palette for the plot
-    all_font_size = 1,          # Scale for all font sizes in the plot 
-    panel_rows    = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols    = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+    color_tone    = "purdue",  # Color palette for the plot
+    all_font_size = 1,         # Scale for all font sizes in the plot
+    panel_rows    = 1,         # Number of rows for the panel layout; NULL for automatic calculation
+    panel_cols    = NULL       # Number of columns for the panel layout; NULL for automatic calculation
   )
 )
   </code></pre>
@@ -1255,45 +1255,45 @@ stack_plot(
 <div id="unstack_plot" class="code-box">
   <p>This R script is designed to create an unstacked plot, suitable for further analyzing decomposition results at a disaggregated level (e.g., by country).</p>
   <pre><code>
-  # For help function use: ?stack_plot
-  stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
+# For help function use: ?stack_plot
+stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
 
-stack_plot(
-  data                      = stack.data,
-  x_axis_from               = "Region",        # Column used for the x-axis
-  filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
-  stack_value_from          = "COLUMN",        # Column that defines the components of the stack plot
-  show_total                = TRUE,            # Show the total value label in the stack plot
-  unstack_plot              = TRUE,            # If TRUE, unstack the bars and display them separately (comparison style)
-  split_by                  = "Region",        # Column(s) used to split data into separate plots (e.g., one plot per region)
-  panel_var                 = "Experiment",    # Column used for paneling (faceting)
-  top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
-  invert_axis              = FALSE,           # Whether to invert the panel (facet) order
-  separate_figure           = FALSE,           # Whether to generate a separate figure for each panel
-  var_name_by_description   = TRUE,            # Use the description as the variable name
-  add_var_info              = FALSE,           # Add variable code in parentheses
-  export_picture            = FALSE,           # Export the plots as image files
-  export_as_pdf             = FALSE,           # Export the plots as PDF. Use "merged" to combine all plots into one PDF
-  output_path               = output.folder,
-  
+default_unstack <- stack_plot(
+  data                    = stack.data,
+  x_axis_from             = "Region",         # Column used for the x-axis
+  filter_var              = NULL,             # Filter data based on specific values in the defined column(s)
+  stack_value_from        = "COLUMN",         # Column that defines the components of the stack plot
+  show_total              = TRUE,             # Show the total value label in the stack plot
+  unstack_plot            = TRUE,             # If TRUE, unstack the bars and display them separately (comparison style)
+  split_by                = "Region",         # Column(s) used to split data into separate plots
+  panel_var               = "Experiment",     # Column used for paneling (faceting)
+  top_impact              = NULL,             # Optionally limit to top-N most impactful entries per panel
+  invert_axis             = FALSE,            # Whether to invert the panel (facet) order
+  separate_figure         = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description = TRUE,             # Use the description as the variable name
+  add_var_info            = FALSE,            # Add variable code in parentheses
+  export_picture          = FALSE,            # Export the plots as image files
+  export_as_pdf           = FALSE,            # Export the plots as PDF; use "merged" to combine all plots into one PDF
+  output_path             = output.folder,
+
   # Output Configurations
-  ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly     
   export_config = create_export_config(
-    width  = 28,             # Width of the output plot in inches
-    height = 15              # Height of the output plot in inches
+    width  = 28,            # Width of the output plot in inches
+    height = 15             # Height of the output plot in inches
   ),
-  
+
+  # Styling
   plot_style_config = create_plot_style(
-    show_title = TRUE,         # FALSE to hide plot title
-    title_format = create_title_format(
-      type = "full",         # option: standard (default), prefix, suffix, full, dynamic
-      text = "Welfare Decomposition",
+    show_title    = TRUE,       # FALSE to hide plot title
+    title_format  = create_title_format(
+      type = "full",            # Options: standard, prefix, suffix, full, dynamic
+      text = "Welfare Decomposition (Unstack)",
       sep  = ""
     ),
     color_tone    = "purdue",   # Color palette for the plot
-    all_font_size = 1,          # Scale for all font sizes in the plot 
-    panel_rows    = 1,          # Number of rows for the panel layout, NULL for automatic calculation  
-    panel_cols    = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
+    all_font_size = 1,          # Scale for all font sizes in the plot
+    panel_rows    = 1,          # Number of rows for the panel layout; NULL for auto
+    panel_cols    = NULL        # Number of columns for the panel layout; NULL for auto
   )
 )
   </code></pre>

@@ -439,7 +439,6 @@ combine all plots into one PDF file)</p></li>
 <summary class="toggle-summary">
 💻 Comparison Plot Codes
 </summary>
-<!-- START: Comparison Plot Filter UI -->
 <style>
   label { font-weight: bold; }
   select { font-size: 16px; margin-bottom: 20px; padding: 5px 10px; width: 300px;}
@@ -452,21 +451,21 @@ combine all plots into one PDF file)</p></li>
   <option value="comparison">Default</option>
   <option value="macro">GTAP Macro Plot</option>
   <option value="advanced">Advanced Comparison Plot</option>
+  <option value="comparison_plot_var">Comparison Plot by Variable</option>
 </select>
 
 <div class="code-group-comparison">
 
 <div id="comparison" class="code-box">
-<p>This function is suitable for one-dimensional data such as <code>qgdp</code>, <code>u</code>, <code>EV</code>, or <code>qpriv</code>, allowing comparison of effects across regions (e.g., <code>REG</code>).</p>
-
-<pre><code>
+  <p>This function is suitable for one-dimensional data such as <code>qgdp</code>, <code>u</code>, <code>EV</code>, or <code>qpriv</code>, allowing comparison of effects across regions (e.g., <code>REG</code>).</p>
+  <pre><code>
 # For help function use: ?comparison_plot
 comparison.data <- sl4.plot.data[["REG"]]   # Replace with your actual dataframe name
 
 default_compare.plot <- comparison_plot(  # ! Do not change this line
   data                      = comparison.data,
   x_axis_from               = "Region",         # Column used for the x-axis
-  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
   split_by                  = "Variable",       # Column(s) used to split data into separate plots
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
   invert_axis               = FALSE,            # Whether to invert the panel (facet) order
@@ -480,12 +479,13 @@ default_compare.plot <- comparison_plot(  # ! Do not change this line
   # Output Configurations
   ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly
   export_config = create_export_config(
-    width  = 28,
-    height = 15
+    width  = 18,
+    height = 10
   ),
   
   # Some Plot Style Configurations
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "dynamic",                         # dynamic allows use of {Description}
       text = "Impacts on {Description}",
@@ -497,22 +497,63 @@ default_compare.plot <- comparison_plot(  # ! Do not change this line
     color_tone    = "gtap"
   )
 )
-</code></pre>
+  </code></pre>
 </div>
 
+<div id="comparison_plot_var" class="code-box">
+  <p>This setup is designed to report multiple variables within a single experiment. For example, you can plot Exports, Imports, and Real GDP as panels, instead of using experiments as the default facet. This is useful when you want to display a group of meaningful variables from one simulation.</p>
+  <pre><code>
+# For help function use: ?comparison_plot
+comparison.data <- sl4.plot.data[["REG"]]   # Replace with your actual dataframe name
+
+comparison_plot_var <- comparison_plot(  # ! Do not change this line
+  data                      = comparison.data,
+  x_axis_from               = "Region",         # Column used for the x-axis
+  filter_var = list(Experiment = c("IncreaseTar10")),  # Filter data based on specific values in the defined column(s)
+  split_by                  = "Unit",             # No need to split, only 1 variable
+  panel_var                 = "Variable",       # Column used for paneling (faceting)
+  invert_axis               = FALSE,            # Whether to invert the panel (facet) order
+  separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
+  var_name_by_description   = TRUE,             # Use description as variable name
+  add_var_info              = FALSE,             # Add variable code in parentheses
+  export_picture            = TRUE,             # Export as image
+  export_as_pdf             = "merged",         # Export the plots as PDF. Use "merged" to combine all plots into one PDF
+  output_path               = output.folder,
+
+  # Output Configurations
+  export_config = create_export_config(
+    width  = 18,
+    height = 10
+  ),
+
+  # Some Plot Style Configurations
+  plot_style_config = create_plot_style(
+    show_title = TRUE,
+    title_format = create_title_format(
+      type = "full",
+      text = "IncreaseTar10 - Economic Impacts",
+      sep  = ""
+    ),
+    all_font_size = 1,
+    panel_rows    = 1,
+    panel_cols    = NULL,
+    color_tone    = "gtap"
+  )
+)
+  </code></pre>
+</div>
     
 <div id="macro" class="code-box"> 
-<p>This function is suitable for global impacts (i.e., no dimensions); it uses data from the <code>Macros</code> header in the <code>sl4</code> solution file.</p>
-
-<pre><code>
+  <p>This function is suitable for global impacts (i.e., no dimensions); it uses data from the <code>Macros</code> header in the <code>sl4</code> solution file.</p>
+  <pre><code>
 # For help function use: ?comparison_plot
 comparison.data <- GTAPMacro   # Replace with your actual dataframe name
 
 default_compare.plot <- comparison_plot(  # ! Do not change this line
   data                      = comparison.data,
   x_axis_from               = "Variable",       # Column used for the x-axis
-  filter_var                = NULL,             # Optional column to filter data based on x-axis
-  split_by                  = "Variable",       # Column(s) used to split data into separate plots
+  filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
+  split_by                  = "Unit",         # Column(s) used to split data into separate plots
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
   invert_axis              = TRUE,             # Whether to invert the panel (facet) order
   separate_figure           = FALSE,            # Whether to generate a separate figure for each panel
@@ -525,16 +566,18 @@ default_compare.plot <- comparison_plot(  # ! Do not change this line
   # Output Configurations
   ## Try adjusting widgth and height if output is too dense, too small, or not displayed properly  
   export_config = create_export_config(
-    width  = 28,
-    height = 35
+    width  = 18,
+    height = 15
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "full",                            # Full title with static text
       text = "Global Economic Impacts",
       sep  = ""
     ),
+    show_axis_titles_on_all_facets = FALSE,     # To show label only at first panel     
     all_font_size = 1,
     panel_rows    = 1,
     panel_cols    = NULL,
@@ -542,14 +585,13 @@ default_compare.plot <- comparison_plot(  # ! Do not change this line
   )
 )
   </code></pre>
-  </div>
+</div>
     
 
 
 <div id="advanced" class="code-box">
-<p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
-
-<pre><code>
+  <p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
+  <pre><code>
 # For help function use: ?comparison_plot
 comparison.data <- your_dataframe  # Replace with your actual dataframe name
 
@@ -689,7 +731,7 @@ adv.compare.plot <- comparison_plot(
     plot.margin = c(10, 25, 10, 10) #c(top, right, bottom, left)
   )
 )
-</code></pre>
+  </code></pre>
 </div>
 
 
@@ -743,7 +785,6 @@ adv.compare.plot <- comparison_plot(
 <p>This function is suitable for any dimensional data, with a focus on detailed overviews rather than comparisons across a few observations—such as plotting <code>qgdp</code> for all countries.</p>
 
 <p><strong>Note:</strong> <code>"REG"</code> has been renamed to <code>"Region"</code>, and <code>"COMM"</code> to <code>"Commodity"</code>.</p>
-
 <pre><code>
 # For help function use: ?detail_plot
 detail.data <- sl4.plot.data[["COMM*REG"]]  # Replace with your actual dataframe
@@ -751,7 +792,7 @@ detail.data <- sl4.plot.data[["COMM*REG"]]  # Replace with your actual dataframe
 default_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Commodity",      # Column used for the x-axis
-  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
   split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
   top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
@@ -771,6 +812,7 @@ default_detail <- detail_plot(
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
       text = "Change in",
@@ -788,7 +830,6 @@ default_detail <- detail_plot(
 
 <div id="oned_detail" class="code-box">
   <p>This R script is designed for one-dimensional data plot like <code>qgdp</code>, <code>EV</code>, etc. across all regions</p>
-  
   <pre><code>
 # For help function use: ?detail_plot
 detail.data <- sl4.plot.data[["REG"]]   # Dataframe with one-dimensional data
@@ -796,7 +837,7 @@ detail.data <- sl4.plot.data[["REG"]]   # Dataframe with one-dimensional data
 oned_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Region",         # Column used for the x-axis
-  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
   split_by                  = "Variable",       # Column(s) used to split data into separate plots
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
   top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel
@@ -816,6 +857,7 @@ oned_detail <- detail_plot(
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
       text = "Change in",
@@ -833,15 +875,14 @@ oned_detail <- detail_plot(
   
 <div id="twod_detail" class="code-box">
   <p>This R script is designed for two-dimensional data plot like <code>qo</code>, <code>qxw</code>, <code>qmw</code>, etc., impacts across all regions (<code>"REG"</code>).</p>  
-
-<pre><code>
+  <pre><code>
 # For help function use: ?detail_plot
 detail.data <- sl4.plot.data[["COMM*REG"]]   # Dataframe with two-dimensional data
 
 twod_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Commodity",     # Column used for the x-axis
-  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
   split_by                  = "Variable",      # Column(s) used to split data into separate plots
   panel_var                 = "Experiment",    # Column used for paneling (faceting)
   top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
@@ -861,6 +902,7 @@ twod_detail <- detail_plot(
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "prefix",       # option: standard (default), prefix, suffix, full, dynamic
       text = "Change in",
@@ -873,14 +915,13 @@ twod_detail <- detail_plot(
     panel_cols     = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
   )
 )
-</code></pre>
+  </code></pre>
   </div>
   
 <div id="threed_detail" class="code-box">
   <p>This R script is designed for three-dimensional data plot like <code>qxs</code>. This example assumes that you chose to extract <code>qxs</code> during <strong>1.ProjectSetup</strong></p>
 
 <p><strong>Note:</strong> This code can be applied to any dimensional data by adding more columns to <code>split_by</code>.</p>
-
   <pre><code>
 # For help function use: ?detail_plot
 detail.data <- bilateral_data[["qxs"]]   # Dataframe with three-dimensional data
@@ -888,7 +929,7 @@ detail.data <- bilateral_data[["qxs"]]   # Dataframe with three-dimensional data
 threed_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Commodity",     # Column used for the x-axis
-  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
   split_by                  = c("Source", "Destination"),  # Split plots by Source & Destination
   panel_var                 = "Experiment",    # Column used for paneling (faceting)
   top_impact                = NULL,            # Optionally limit to top-N most impactful entries per panel
@@ -908,6 +949,7 @@ threed_detail <- detail_plot(
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "dynamic",      # Use {Source} and {Destination} from column values
       text = "Change in bilateral trade between {Source} and {Destination}",
@@ -926,7 +968,6 @@ threed_detail <- detail_plot(
 <div id="top_impact_detail" class="code-box">
 
 <p>This function is similar to the "Default" code, but adds <code>top_impact = 10</code> to automatically filter the top 10 most impacted sectors (e.g., <code>x_axis_from = "Commodity"</code>).</p>
-
 <pre><code>
 # For help function use: ?detail_plot
 ## You can change `top_impact` to any numeric value.
@@ -935,7 +976,7 @@ detail.data <- sl4.plot.data[["COMM*REG"]]  # Replace with your actual dataframe
 default_detail <- detail_plot(
   data                      = detail.data,
   x_axis_from               = "Commodity",      # Column used for the x-axis
-  filter_var                = NULL,             # Optional column to filter data based on x-axis
+  filter_var                = NULL,             # Filter data based on specific values in the defined column(s)
   split_by                  = "Region",         # Column(s) used to split data into separate plots (e.g., one plot per variable)
   panel_var                 = "Experiment",     # Column used for paneling (faceting)
   top_impact                = NULL,             # Optionally limit to top-N most impactful entries per panel (e.g., top_impact = 10)
@@ -955,6 +996,7 @@ default_detail <- detail_plot(
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "prefix",        # option: standard (default), prefix, suffix, full, dynamic
       text = "Change in",
@@ -972,8 +1014,7 @@ default_detail <- detail_plot(
 
 <div id="advanced_detail" class="code-box">
 <p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
-
-<pre><code>
+  <pre><code>
 # For help function use: ?detail_plot
 detail.data <- sl4.plot.data[["COMM*REG"]]   # Replace with your actual dataframe name
 
@@ -1114,7 +1155,7 @@ adv.detail.plot <- detail_plot(
     plot.margin = c(10, 25, 10, 10) #c(top, right, bottom, left)
   )
 )
-</code></pre>
+  </code></pre>
 </div>
 
 
@@ -1163,7 +1204,6 @@ adv.detail.plot <- detail_plot(
 
 <div id="default_stack" class="code-box">
   <p>This R script is designed to create a stack plot suitable for decomposition analysis—such as welfare decomposition from header <code>A</code> of <code>-WEL.har</code>.</p>
-  
   <pre><code>
 # For help function use: ?stack_plot
 stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
@@ -1171,7 +1211,7 @@ stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
 stack_plot(
   data                      = stack.data,
   x_axis_from               = "Region",        # Column used for the x-axis
-  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
   stack_value_from          = "COLUMN",        # Column that defines the components of the stack plot
   show_total                = TRUE,            # Show the total value label in the stack plot
   unstack_plot              = FALSE,           # If TRUE, unstack the bars and display them separately (comparison style)
@@ -1205,12 +1245,11 @@ stack_plot(
     panel_cols    = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
   )
 )
-</code></pre>
-  </div>
+  </code></pre>
+</div>
   
-  <div id="unstack_plot" class="code-box">
+<div id="unstack_plot" class="code-box">
   <p>This R script is designed to create an unstacked plot, suitable for further analyzing decomposition results at a disaggregated level (e.g., by country).</p>
-  
   <pre><code>
   # For help function use: ?stack_plot
   stack.data <- har.plot.data[["A"]]  # Replace with your actual dataframe
@@ -1218,7 +1257,7 @@ stack_plot(
 stack_plot(
   data                      = stack.data,
   x_axis_from               = "Region",        # Column used for the x-axis
-  filter_var                = NULL,            # Optional column to filter data based on x-axis
+  filter_var                = NULL,            # Filter data based on specific values in the defined column(s)
   stack_value_from          = "COLUMN",        # Column that defines the components of the stack plot
   show_total                = TRUE,            # Show the total value label in the stack plot
   unstack_plot              = TRUE,            # If TRUE, unstack the bars and display them separately (comparison style)
@@ -1241,6 +1280,7 @@ stack_plot(
   ),
   
   plot_style_config = create_plot_style(
+    show_title = TRUE,         # FALSE to hide plot title
     title_format = create_title_format(
       type = "full",         # option: standard (default), prefix, suffix, full, dynamic
       text = "Welfare Decomposition",
@@ -1252,15 +1292,14 @@ stack_plot(
     panel_cols    = NULL        # Number of columns for the panel layout, NULL for automatic calculation  
   )
 )
-</code></pre>
-  </div>
+  </code></pre>
+</div>
     
 
 
 <div id="advanced_stackplot" class="code-box">
-<p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
-
-<pre><code>
+  <p>This R script is designed for full customization—everything must be defined from scratch. Please refer to the <strong>Plot Style Configs</strong> section before using it.</p>
+  <pre><code>
 # For help function use: ?stack_plot
 stack_plot_data <- har.plot.data[["A"]]  # Replace with your actual dataframe name
 
@@ -1403,7 +1442,7 @@ adv.stack.plot <- stack_plot(
     plot.margin = c(10, 25, 10, 10) #c(top, right, bottom, left)
   )
 )
-</code></pre>
+  </code></pre>
 </div>
 
 </div> <!-- END .stack-code-blocks wrapper -->

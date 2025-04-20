@@ -1,7 +1,8 @@
 # Introduction
 [![Author](https://img.shields.io/badge/Pattawee.P-blue?label=Author)](https://bodysbobb.github.io/) ![Last Updated](https://img.shields.io/github/last-commit/Bodysbobb/GTAPViz?label=Last%20Updated&color=blue)
 
-[![Version](https://img.shields.io/github/v/tag/Bodysbobb/GTAPViz?label=version&color=3CB371&sort=semver)](https://github.com/Bodysbobb/GTAPViz/releases/latest)
+[![CRAN](https://www.r-pkg.org/badges/version/GTAPViz)](https://CRAN.R-project.org/package=GTAPViz/)
+[![GitHub Version](https://img.shields.io/github/v/tag/Bodysbobb/GTAPViz?label=GitHub%20Version&color=3CB371&sort=semver)](https://github.com/Bodysbobb/GTAPViz/releases/latest)
 ![License](https://img.shields.io/github/license/Bodysbobb/GTAPViz-R-GTAPuser)
 
 **Package Help:**  

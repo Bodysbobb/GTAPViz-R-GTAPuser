@@ -1,3 +1,60 @@
+/* === Responsive full-width page layout with smart padding === */
+
+/* Large screens (≥992px): full-width content with custom padding */
+@media (min-width: 992px) {
+  .container,
+  .container-fluid,
+  .main-container,
+  .main-container > .row,
+  .content {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 40px !important;   /* You can tweak */
+    padding-right: 40px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Small & medium screens (<992px): safe padding preserved */
+/* === Disable floating TOC on mobile (stack it normally) === */
+@media (max-width: 991px) {
+  #TOC {
+    float: none !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px;
+    padding: 0 16px;
+    border-left: none !important;
+    border-right: none !important;
+  }
+
+  /* Optional: center align TOC on mobile */
+  #TOC .tocify-item {
+    border-left: none !important;
+    text-align: left;
+    padding-left: 0;
+  }
+
+  .col-md-3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .col-md-9 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    margin-left: 0 !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+
+
 /* --- RESET & BASE TYPOGRAPHY --- */
 body {
   font-size: 18px;
@@ -6,6 +63,7 @@ body {
   transition: padding-top 0.3s ease;
   font-weight: 400;
   line-height: 1.6;
+  background-color: #F5F5F7 !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -32,20 +90,130 @@ h1::before {
   border-radius: 0.5px;
 }
 
-/* --- TOC STYLING --- */
+/* Specific fix for step2, step3, and FAQs layout issues */
+body .container-fluid.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) {
+  body .container-fluid.main-container > .row {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+  }
+  
+  body .container-fluid.main-container > .row > .col-md-3,
+  body .container-fluid.main-container > .row > div:first-child {
+    width: 300px !important;
+    flex: 0 0 300px !important;
+    position: fixed !important;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    top: 80px;
+  }
+  
+  body .container-fluid.main-container > .row > .col-md-9,
+  body .container-fluid.main-container > .row > div:nth-child(2) {
+    margin-left: 320px !important;
+    width: calc(100% - 320px) !important;
+    flex: 1 1 auto !important;
+  }
+}
+
+/* === TOC Modern GTAP Style === */
+
+/* TOC wrapper reset */
 #TOC {
-  margin-top: 20px;
-  padding-top: 15px;
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
-#TOC a { 
-  font-size: 20px; 
+/* TOC list and items */
+#TOC ul {
+  padding-left: 1.2em;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+#TOC ul li {
+  margin: 6px 0;
+  list-style: none;
+}
+
+/* All TOC items */
+#TOC .tocify-item {
+  font-size: 18px;
+  line-height: 1.6;
+  padding: 4px 12px;
+  color: #003366 !important;             /* Always gold */
+  border-left: 3px solid transparent;
   font-weight: normal;
+  background: none !important;
+  transition: all 0.3s ease;
 }
 
-nav#TOC ul li a.is-active {
+/* Hover effect */
+#TOC .tocify-item:hover {
+  color: #B5853F !important;
+  border-left: 4px solid #003366;
+}
+
+/* Active TOC item (highlighted section) */
+#TOC .tocify-focus,
+#TOC .tocify-focus.tocify-item,
+#TOC .tocify-item.tocify-focus {
   font-weight: bold !important;
-  color: #003366 !important;
+  color: #B5853F !important;
+  border-left: 4px solid #003366 !important;
+  background: none !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Also override Bootstrap-styled .active if present */
+#TOC li.active,
+#TOC li.active > a,
+#TOC li.tocify-focus,
+#TOC li.tocify-focus > a {
+  background: none !important;
+  background-color: transparent !important;
+  font-weight: bold !important;
+  color: #B5853F !important;
+  border-left: 4px solid #003366 !important;
+}
+
+@media (min-width: 992px) {
+  /* TOC block */
+  .col-md-3 {
+    width: 300px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  #TOC {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+  }
+
+  /* Content block with clear margin */
+  .col-md-9 {
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 90px !important;     /* ← FIXED SPACE FROM TOC */
+    padding-left: 60px !important;
+    padding-right: 90px !important;
+  }
+
+  /* Safety reset if needed */
+  .content,
+  .main-container .content {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
 }
 
 /* --- FIGURE & TABLE CONTAINERS --- */
@@ -183,12 +351,52 @@ nav#TOC ul li a.is-active {
 }
 
 .toggle-code-summary {
+  position: relative;
+  padding: 8px 14px;
+  margin: 14px 0 18px 1.1em; /* same as toggle-summary */
   font-family: monospace;
   font-size: 15px;
-  color: #333;
+  font-weight: bold;
   background-color: #f5f5f5;
-  border-left: 4px solid #bbb;
-  margin: 10px 0;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+  z-index: 0;
+}
+
+/* GTAP Stripe 1 (Navy) */
+.toggle-code-summary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.8em;
+  width: 0.3em;
+  height: 100%;
+  background-color: #003366;
+  z-index: -1;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+/* GTAP Stripe 2 (Gold) */
+.toggle-code-summary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.4em;
+  width: 0.3em;
+  height: 100%;
+  background-color: #F2A900;
+  z-index: -1;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+
+.toggle-code-summary:not([hidden]) {
+  margin-bottom: 1.1rem; /* Adjust as needed */
 }
 
 .toggle-info {
@@ -301,6 +509,12 @@ hr {
 }
 
 /* === FIXED NAVBAR STYLING === */
+.navbar a.brand-fake {
+  font-weight: bold;
+  color: #F2A900 !important;
+  font-size: 20px;
+  margin-right: 30px;
+}
 /* Basic responsive navbar styles */
 .navbar {
   background-color: #003366 !important;
@@ -451,3 +665,4 @@ hr {
     text-align: center;
   }
 }
+

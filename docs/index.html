@@ -34,7 +34,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
@@ -224,9 +223,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -322,11 +318,14 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GTAPViz Guide</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="index.html">GTAPViz Guide</a>
+</li>
+<li>
   <a href="step1_setup.html">1.Project Setup</a>
 </li>
 <li>
@@ -354,14 +353,6 @@ div.tocify {
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
 
 
 <h1 class="title toc-ignore">GTAPViz Guide</h1>
@@ -370,28 +361,63 @@ div.tocify {
 </div>
 
 
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This manual is designed for GTAP users. If you are looking for a
-comprehensive vignette, please see <a
-href="https://bodysbobb.github.io/GTAPViz/"><code>GTAPViz</code></a>.</p>
-<p>Please use the navigation menu above to access each section.</p>
+<div id="introduction" class="section level1 unnumbered">
+<h1 class="unnumbered">Introduction</h1>
+<p>This manual is designed for <strong>GTAP users</strong>.<br />
+For a comprehensive guide, please refer to the <a
+href="https://www.pattawee-pp.com/GTAPViz/"><code>GTAPViz Vignette</code></a>.</p>
+<p>This document requires the following R scripts, aligned with the
+navigation menu:</p>
 <ul>
-<li><p>File <code>1.ProjectSetup.R</code> refers to <strong>1. Project
-Setup</strong> in the navigation menu.</p></li>
-<li><p>File <code>2.PlotGens.R</code> refers to
-<strong>2.Plotting</strong> in the navigation menu.</p></li>
-<li><p>File <code>3.TableGens.R</code> refers to
-<strong>3.Table</strong> in the navigation menu.</p></li>
-<li><p>Refer to <strong>FAQs</strong> in the navigation menu for common
-issues and solutions.</p></li>
+<li><code>1.ProjectSetup.R</code> — <em>1. Project Setup</em></li>
+<li><code>2.PlotGens.R</code> — <em>2. Plotting</em></li>
+<li><code>3.TableGens.R</code> — <em>3. Table</em></li>
 </ul>
-<p>If you do not have the R script files, please download the ZIP file
-here: <a
+<p>If you do not have these R script files (located in the
+<strong>GTAPViz-user</strong> folder), please download the ZIP file:
+<br> 📁 <a
 href="https://github.com/Bodysbobb/GTAPViz-R-GTAPuser/blob/main/GTAPViz-GTAPusers.zip">GTAPViz-R-GTAPusers-code</a></p>
+<br> 📌 <strong>Recommended:</strong> Run the following code in R to
+download and unzip automatically:
+<details>
+<summary class="toggle-summary">
+Download and Unzip R scripts
+</summary>
+<pre class="r"><code># ==== 1. USER SETUP (define the full path e.g., &quot;C:/Users/YourName/Documents&quot;) ====
+output_dir &lt;- &quot;D:/One Drive/OneDrive - purdue.edu&quot;
+
+
+# ==== 2. DO NOT CHANGE BELOW THIS LINE ====
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
+zip_url &lt;- &quot;https://github.com/Bodysbobb/GTAPViz-R-GTAPuser/raw/main/GTAPViz-user.zip&quot;
+zip_file &lt;- tempfile(fileext = &quot;.zip&quot;)
+download.file(zip_url, zip_file, mode = &quot;wb&quot;)
+unzip(zip_file, exdir = output_dir)
+setwd(output_dir)
+
+message(&quot;✅ GTAPViz user scripts saved to:\n&quot;)
+message(paste0(&quot;file:///&quot;, normalizePath(output_dir, winslash = &quot;/&quot;)), &quot;\n&quot;)
+
+# Open the folder in Windows Explorer
+# src 
+shell.exec(normalizePath(paste0(output_dir,&quot;/GTAPViz-user/src&quot;)))
+# map
+shell.exec(normalizePath(paste0(output_dir,&quot;/GTAPViz-user/map&quot;)))</code></pre>
+</details>
 </div>
-<div id="package-helps" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Package Helps</h1>
+<div id="package-installation" class="section level1 unnumbered">
+<h1 class="unnumbered">Package Installation</h1>
+<p>Copy and paste the following code into your R script, then run it to
+install <code>GTAPViz</code> from CRAN:</p>
+<pre class="r"><code># Install the GTAPViz package (note: case-sensitive)
+install.packages(&quot;GTAPViz&quot;)
+
+# Check the installed version of GTAPViz
+library(GTAPViz)
+packageVersion(&quot;GTAPViz&quot;)</code></pre>
+</div>
+<div id="package-helps" class="section level1 unnumbered">
+<h1 class="unnumbered">Package Helps</h1>
 <ul>
 <li><p><a
 href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r">ChatGPT
@@ -401,8 +427,8 @@ href="file:///D:/GitHub/GTAPViz/docs/index.html">GTAPViz
 Vignette</a></p></li>
 </ul>
 </div>
-<div id="programs" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Programs</h1>
+<div id="programs" class="section level1 unnumbered">
+<h1 class="unnumbered">Programs</h1>
 <p>If you don’t have RStudio (or Visual Studio Code with R language
 support) installed yet, please install either of them first.</p>
 <ul>
@@ -542,11 +568,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 <script>
 $(document).ready(function ()  {

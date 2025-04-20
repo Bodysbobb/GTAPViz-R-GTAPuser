@@ -33,7 +33,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
@@ -223,9 +222,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -321,11 +317,14 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GTAPViz Guide</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="index.html">GTAPViz Guide</a>
+</li>
+<li>
   <a href="step1_setup.html">1.Project Setup</a>
 </li>
 <li>
@@ -353,14 +352,6 @@ div.tocify {
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
 
 
 <h1 class="title toc-ignore">GTAPViz FAQs</h1>
@@ -373,77 +364,112 @@ and their corresponding solutions related to the
 <strong>GTAPViz</strong> package. Users can identify relevant issues and
 run the suggested solutions by copying and pasting the code into their R
 script and run!</p>
-<div id="package-help" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Package Help</h1>
-<div class="info-box">
-<p><strong> <a
-href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r">ChatGPT
-Assistant for GTAPViz</a> </strong></p>
-</div>
+<div id="package-help" class="section level1 unnumbered">
+<h1 class="unnumbered">Package Help</h1>
 <p>Many helpful functions—such as how to rename values or columns—are
 not covered in this brief README.<br />
-For detailed instructions, please refer to the comprehensive guides and
-vignettes included with the package.</p>
-<ol style="list-style-type: decimal">
-<li><a href="https://bodysbobb.github.io/GTAPViz/">Comprehensive
-Manuscript</a></li>
-</ol>
-<ul>
-<li>Click on the “Vignettes” tab to select a document:
-<ul>
-<li>Comprehensive Manuscript: Step-by-step instructions starting from
-the setup directory<br />
-</li>
-<li>Advanced Plot Configuration and Outputs: Focused on plot
-configurations and output formats<br />
-</li>
-<li>Advanced Table Configuration and Outputs: Focused on table
-configurations and output formats</li>
-</ul></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><p><a
-href="https://github.com/Bodysbobb/GTAPViz/blob/main/inst/GTAPViz.pdf">R
-Manual</a></p></li>
-<li><p><a
-href="https://bodysbobb.github.io/GTAPViz/reference/index.html">Function
-Index</a></p></li>
-</ol>
+For complete documentation, please refer to the links provided in the
+badges below.</p>
+<div
+style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; margin-bottom: 20px;">
+<p><a href="https://chatgpt.com/g/g-67f87a78396c81919aa2a0676c40e8b3-gtapviz-r" target="_blank" style="display: inline-block;">
+<img src="https://img.shields.io/badge/GPT--GTAPViz-74aa9c?style=flat-square&logo=openai&logoColor=white"
+         alt="GPT-GTAPViz"
+         style="height: 25px; image-rendering: auto;"> </a></p>
+<p><a href="https://bodysbobb.github.io/GTAPViz/" target="_blank" style="display: inline-block;">
+<img src="https://img.shields.io/badge/GTAPViz--Vignettes-276DC3?style=flat-square&logo=r&logoColor=white"
+         alt="GTAPViz-Vignettes"
+         style="height: 25px; image-rendering: auto;"> </a></p>
+<p><a href="https://www.pattawee-pp.com/GTAPViz/reference/index.html" target="_blank" style="display: inline-block;">
+<img src="https://img.shields.io/badge/GTAPViz--Parameters-4F4F4F?style=flat-square&logo=r&logoColor=white"
+         alt="GTAPViz-Parameters"
+         style="height: 25px; image-rendering: auto;"> </a></p>
+<p><a href="https://github.com/Bodysbobb/GTAPViz/issues" target="_blank" style="display: inline-block;">
+<img src="https://img.shields.io/badge/GTAPViz--Issues-B5853F?style=flat-square&logo=github&logoColor=white"
+         alt="GTAPViz-Issue Reports"
+         style="height: 25px; image-rendering: auto;"> </a></p>
 </div>
-<div id="install-gtapviz-for-the-first-time" class="section level1"
-number="2">
-<h1><span class="header-section-number">2</span> Install GTAPViz for the
-first time</h1>
-<pre class="r"><code># Install devtools if not already installed
-if (!requireNamespace(&quot;devtools&quot;, quietly = TRUE)) {
-  install.packages(&quot;devtools&quot;) 
-}
+<div id="package-versions" class="section level2 unnumbered">
+<h2 class="unnumbered">Package Versions</h2>
+<div style="display: flex; gap: 8px; align-items: center;">
+<p><a href="https://cran.r-project.org/web/packages/GTAPViz/index.html" target="_blank" style="display: inline-block;">
+<img src="https://img.shields.io/badge/GTAPViz--CRAN-A82C2C?style=flat-square&logo=r&logoColor=white"
+         alt="GTAPViz-CRAN"
+         style="height: 25px; image-rendering: auto;"> </a></p>
+<p><a href="https://github.com/Bodysbobb/GTAPViz" target="_blank" style="display: inline-block;">
+<img src="https://img.shields.io/badge/GTAPViz--GitHub-181717?style=flat-square&logo=github&logoColor=white"
+         alt="GTAPViz-GitHub"
+         style="height: 25px; image-rendering: auto;"> </a></p>
+</div>
+</div>
+</div>
+<div id="install-gtapviz-for-the-first-time"
+class="section level1 unnumbered">
+<h1 class="unnumbered">Install GTAPViz for the first time</h1>
+<pre class="r"><code># Install the GTAPViz package (note: case-sensitive)
+install.packages(&quot;GTAPViz&quot;)
 
-# Install GTAPViz from GitHub and load the package
-devtools::install_github(&quot;Bodysbobb/GTAPViz&quot;)
-require(GTAPViz)
-
-# Check the version of GTAPViz
+# Check the installed version of GTAPViz
+library(GTAPViz)
 packageVersion(&quot;GTAPViz&quot;)</code></pre>
 </div>
-<div id="undefined-functions" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Undefined
-Functions</h1>
+<div id="undefined-functions" class="section level1 unnumbered">
+<h1 class="unnumbered">Undefined Functions</h1>
 <p><span class="common-issue">Common Issue:</span></p>
 <ul>
 <li>When running the code, an error indicates unused arguments or
 parameters, or an old version of the package is detected.</li>
 </ul>
-<p><strong>Note:</strong> This code will clear all R objects in the
-environment, so make sure to save your work before running it.</p>
 <div id="solution-1" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <p>Try force-reinstalling the updated version of
-<code>GTAPViz</code>.<br />
-If R prompts you to update any packages during the installation, it is
-recommended to choose “All”:</p>
-<pre class="r"><code># Clear all
-rm(list = ls())
+<code>GTAPViz</code>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Restart your R session (close and reopen R), or go to
+<strong>Session &gt; Restart R</strong> in RStudio.</p></li>
+<li><p>Reinstall the package using the following code:</p></li>
+</ol>
+<pre class="r"><code># Remove the package (if installed)
+if (&quot;GTAPViz&quot; %in% installed.packages()) {
+  remove.packages(&quot;GTAPViz&quot;)
+}
+
+# Clear from memory (if loaded)
+if (&quot;GTAPViz&quot; %in% loadedNamespaces()) {
+  detach(&quot;package:GTAPViz&quot;, unload = TRUE, character.only = TRUE)
+}
+
+# Reinstall the latest version from CRAN
+install.packages(&quot;GTAPViz&quot;)
+
+# Check the version of GTAPViz
+library(GTAPViz)
+packageVersion(&quot;GTAPViz&quot;)</code></pre>
+</details>
+</div>
+<div id="solution-2" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 2</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
+<p>If <strong>Solution 1</strong> does not work, the CRAN version of
+<code>GTAPViz</code> may be outdated.<br />
+Try removing the currently installed CRAN version and reinstalling the
+latest development version from GitHub:</p>
+<pre class="r"><code># Remove the package (if installed)
+if (&quot;GTAPViz&quot; %in% installed.packages()) {
+  remove.packages(&quot;GTAPViz&quot;)
+}
+
+# Clear from memory (if loaded)
+if (&quot;GTAPViz&quot; %in% loadedNamespaces()) {
+  detach(&quot;package:GTAPViz&quot;, unload = TRUE, character.only = TRUE)
+}
 
 # Install devtools if not already installed
 if (!requireNamespace(&quot;devtools&quot;, quietly = TRUE)) {
@@ -456,37 +482,21 @@ require(GTAPViz)
 
 # Check the version of GTAPViz
 packageVersion(&quot;GTAPViz&quot;)</code></pre>
-</div>
-<div id="solution-2" class="section level2 unnumbered">
-<h2 class="unnumbered">Solution 2</h2>
-<p>If Solution 1 does not work, try removing the current version of
-‘GTAPViz’ and reinstalling it:</p>
-<ol style="list-style-type: decimal">
-<li><p>Restart your R session (close and reopen R), or go to
-<strong>Session &gt; Restart R</strong> in RStudio.</p></li>
-<li><p>Reinstall the package using the following code:</p></li>
-</ol>
-<pre class="r"><code># Clear all
-rm(list = ls())
-
-remove.packages(&quot;GTAPViz&quot;)
-
-# Force reinstallation of the latest version from GitHub
-devtools::install_github(&quot;Bodysbobb/GTAPViz&quot;, force = TRUE)
-require(GTAPViz)
-
-# Check the version of GTAPViz
-packageVersion(&quot;GTAPViz&quot;)</code></pre>
+</details>
 </div>
 </div>
-<div id="get-empty-outputs" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Get Empty Outputs</h1>
+<div id="get-empty-outputs" class="section level1 unnumbered">
+<h1 class="unnumbered">Get Empty Outputs</h1>
 <p><span class="common-issue">Common Issue:</span></p>
 <ul>
 <li>Returns empty outputs when running the code.</li>
 </ul>
 <div id="solution-1-1" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <ul>
 <li><p>Check the “OutputMapping.xlsx” file in the <code>/map</code>
 folder. Make sure that all three sheets are well defined, and verify
@@ -501,9 +511,14 @@ actual input filenames.</p></li>
 match the names defined in the “OutputMapping.xlsx” file (note: names
 are case-sensitive).</p></li>
 </ul>
+</details>
 </div>
 <div id="solution-2-1" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 2</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <p>If you have tried all steps in Solution 1 but are still getting empty
 outputs, try running the following code to clear all R objects in the
 environment and attempt to re-extract all variables (this may take some
@@ -562,9 +577,14 @@ auto_gtap_data(
     &quot;stata&quot; = &quot;no&quot;,
     &quot;rds&quot; = &quot;no&quot;,
     &quot;txt&quot; = &quot;no&quot;))</code></pre>
+</details>
 </div>
 <div id="solution-3" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 3</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <ol style="list-style-type: decimal">
 <li><p>Once the solution 2 is complete, check whether
 <code>sl4.plot.data</code> and <code>har.plot.data</code> appear in your
@@ -597,10 +617,11 @@ For more details, see: <a
 href="https://bodysbobb.github.io/HARplus/articles/introduction.html"
 class="uri">https://bodysbobb.github.io/HARplus/articles/introduction.html</a></p></li>
 </ol>
+</details>
 </div>
 </div>
-<div id="plot-dimensions" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Plot Dimensions</h1>
+<div id="plot-dimensions" class="section level1 unnumbered">
+<h1 class="unnumbered">Plot Dimensions</h1>
 <p><span class="common-issue">Common Issue:</span></p>
 <ul>
 <li><p>The plot output is not aesthetically pleasing—too dense, too
@@ -609,6 +630,10 @@ small, or too large.</p></li>
 </ul>
 <div id="solution-1-2" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <ol style="list-style-type: decimal">
 <li>Adjust the <code>width</code> and <code>height</code> parameters in
 the following code.</li>
@@ -627,18 +652,24 @@ as shown in the example below:</li>
 <pre class="r"><code>comparison_plot(...,
                 export_config = my_export_config
                 )</code></pre>
+</details>
 </div>
 </div>
-<div id="plot-order-and-rearrangement" class="section level1"
-number="6">
-<h1><span class="header-section-number">6</span> Plot Order and
-Rearrangement</h1>
+<div id="plot-order-and-rearrangement"
+class="section level1 unnumbered">
+<h1 class="unnumbered">Plot Order and Rearrangement</h1>
 <p><span class="common-issue">Common Issue:</span></p>
 <ul>
 <li>Want to change the display order in plots, such as showing
 <code>EXP2</code> before <code>EXP1</code>, or <code>SEAsia</code>
 before <code>Oceania</code>.</li>
 </ul>
+<div id="solution-1-3" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <p>To customize the sorting, use the following command:</p>
 <pre class="r"><code># Using the function
 sort_sl4_plot &lt;- sort_plot_data(
@@ -661,20 +692,30 @@ sort_sl4_plot &lt;- sort_plot_data(
 &lt;/ul&gt;</code></pre>
 </div>
 </details>
+</details>
 </div>
-<div id="missing-plot-outputs" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> Missing Plot
-Outputs</h1>
-<div id="solution-1-3" class="section level2 unnumbered">
+</div>
+<div id="missing-plot-outputs" class="section level1 unnumbered">
+<h1 class="unnumbered">Missing Plot Outputs</h1>
+<div id="solution-1-4" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <p>Ensure that the export parameters are set to <code>TRUE</code> in the
 plot function:</p>
 <pre class="r"><code>comparison_plot(...,
                  export_picture = TRUE,
                  export_as_pdf = &quot;merged&quot;) # (merged will combine all plots into one PDF file)</code></pre>
+</details>
 </div>
 <div id="solution-2-2" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 2</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <ul>
 <li>Make sure you have defined the correct <code>output_path</code> in
 the plot function.<br />
@@ -689,11 +730,11 @@ cloud-synced folders.<br />
 </li>
 <li>Restart the R session and try again.</li>
 </ul>
+</details>
 </div>
 </div>
-<div id="convert-different-units" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Convert Different
-Units</h1>
+<div id="convert-different-units" class="section level1 unnumbered">
+<h1 class="unnumbered">Convert Different Units</h1>
 <p><span class="common-issue">Common Issue:</span></p>
 <ul>
 <li>The data units are not in the desired format.<br />
@@ -703,8 +744,12 @@ Units</h1>
 <li>You want to convert specific units that are not automatically
 handled.</li>
 </ul>
-<div id="solution" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Solution:</h2>
+<div id="solution-1-5" class="section level2 unnumbered">
+<h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <p>You can convert all units across all data frames within the data list
 by using the following code:</p>
 <pre class="r"><code>your_data &lt;- sl4.plot.data   # Change this to your data list name
@@ -738,11 +783,12 @@ transform the values.<br />
 Accepts operators such as <code>/</code>, <code>*</code>,
 <code>+</code>, or <code>-</code>.</p>
 </div>
+</details>
 </details></li>
 </ul>
-<div id="sec:add-info" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> Missing Unit and
-Description</h1>
+<div id="missing-unit-and-description"
+class="section level1 unnumbered">
+<h1 class="unnumbered">Missing Unit and Description</h1>
 <p><span class="common-issue">Common Issue:</span></p>
 <ul>
 <li><p>Missing <code>"Description"</code> and <code>"Unit"</code>
@@ -750,8 +796,12 @@ columns in the data list.</p></li>
 <li><p>The <code>"Description"</code> and <code>"Unit"</code> columns
 are not correctly defined for each variable.</p></li>
 </ul>
-<div id="solution-1-4" class="section level2 unnumbered">
+<div id="solution-1-6" class="section level2 unnumbered">
 <h2 class="unnumbered">Solution 1</h2>
+<details>
+<summary class="toggle-code-summary">
+Show/Hide
+</summary>
 <p>The easiest way is to re-run <code>1.ProjectSetup.R</code> file and
 ensure that you have define:</p>
 <ul>
@@ -769,8 +819,9 @@ as <code>Yes</code> or <code>mix</code></p></li>
 )
 
 datasets &lt;- add_mapping_info(mapping_df, external_map = mapping_df, mapping = &quot;Yes&quot;)</code></pre>
-<p><strong>Note:</strong> Use <code>?add_mapping_info</code> to
-understand the meaning of <code>mapping</code>.</p>
+<strong>Note:</strong> Use <code>?add_mapping_info</code> to understand
+the meaning of <code>mapping</code>.
+</details>
 <script>
 // SCRIPT 1: Copy Code Button
 window.addEventListener("load", function () {
@@ -906,11 +957,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 <script>
 $(document).ready(function ()  {

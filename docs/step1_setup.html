@@ -33,7 +33,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
@@ -223,9 +222,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -321,11 +317,14 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GTAPViz Guide</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="index.html">GTAPViz Guide</a>
+</li>
+<li>
   <a href="step1_setup.html">1.Project Setup</a>
 </li>
 <li>
@@ -352,14 +351,6 @@ div.tocify {
 </div><!--/.navbar -->
 
 <div id="header">
-
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
 
 
 
@@ -420,8 +411,8 @@ Example of Project Folder
 </figcaption>
 </figure>
 </div>
-<div id="project-parameters" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Project Parameters</h1>
+<div id="project-directory" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Project Directory</h1>
 <div id="project.folder" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span>
 <code>project.folder</code></h2>
@@ -485,10 +476,8 @@ format<br> - <code>FALSE</code>: Skipping that file format
 process_har_vars &lt;- &quot;harmap&quot;  # Leave it like this for default</code></pre>
 </div>
 </div>
-<div id="output-formatting-parameters" class="section level1"
-number="2">
-<h1><span class="header-section-number">2</span> Output Formatting
-Parameters</h1>
+<div id="output-formatting" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Output Formatting</h1>
 <div id="mapping_info" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span>
 <code>mapping_info</code></h2>
@@ -623,9 +612,8 @@ Explanations
 <pre class="r"><code>add_scenario_ranking &lt;- TRUE</code></pre>
 </div>
 </div>
-<div id="optional-auto-gtap-data-extraction"
-class="section level1 unnumbered">
-<h1 class="unnumbered">(Optional) Auto GTAP Data Extraction</h1>
+<div id="optional---data-extraction" class="section level1 unnumbered">
+<h1 class="unnumbered">Optional - Data Extraction</h1>
 <p>If you want to <strong>manually set up the initial GTAP data</strong>
 or <strong>recover after deleting the setup file</strong>,<br />
 you can copy and paste the following code into your R script to retrieve
@@ -1030,11 +1018,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 <script>
 $(document).ready(function ()  {

@@ -695,177 +695,6 @@ sort_sl4_plot &lt;- sort_plot_data(
 </details>
 </div>
 </div>
-<div id="sec:rename-value" class="section level1 unnumbered">
-<h1 class="unnumbered">Renaming Values</h1>
-<p><span class="common-issue">Common Issue:</span></p>
-<ul>
-<li><p>Need to rename values in a specific column before plotting—for
-example, replacing <code>"USA"</code> with <code>"United States"</code>
-or <code>"CHN"</code> with <code>"China"</code> in the <code>REG</code>
-column <strong>across all inputs simultaneously</strong>.</p></li>
-<li><p>Need to rename components of decomposition labels—for example,
-modifying values in the <code>COLUMN</code> column for welfare
-decomposition outputs.</p></li>
-</ul>
-<div id="example-1" class="section level2 unnumbered">
-<h2 class="unnumbered">Example 1</h2>
-<details>
-<summary class="toggle-code-summary">
-Show/Hide
-</summary>
-<p><strong>Option 1:</strong> Create a mapping in an Excel file. Column
-names (<code>"OldName"</code>, <code>"NewName"</code>) and structure
-must match exactly as shown:</p>
-<div class="table-box">
-<table>
-<tr>
-<th>
-OldName
-</th>
-<th>
-NewName
-</th>
-</tr>
-<tr>
-<td>
-USA
-</td>
-<td>
-United States
-</td>
-</tr>
-<tr>
-<td>
-CHN
-</td>
-<td>
-China
-</td>
-</tr>
-</table>
-</div>
-<p>Then import it into R as follows:</p>
-<pre class="r"><code>library(readxl)
-# Your mapping file
-rename.region &lt;- readxl::read_xlsx(&quot;C:/Your/Folder/RenameMapping.xlsx&quot;, sheet = &quot;Sheet1&quot;)
-
-
-sl4.plot.data_rename &lt;- rename_value(sl4.plot.data, 
-                                     column_name = &quot;REG&quot;, # Specify the column containing values to rename
-                                     mapping.file = rename.region)</code></pre>
-<p><br> <strong>Option 2:</strong> Create the mapping directly in an R
-script:</p>
-<pre class="r"><code># Creating Mapping File
-rename.region &lt;- data.frame(
-  ColumnName = &quot;REG&quot;,
-  OldName = c(&quot;USA&quot;, &quot;CHN&quot;),
-  NewName = c(&quot;United States&quot;, &quot;China&quot;),
-  stringsAsFactors = FALSE
-)
-
-sl4.plot.data_rename &lt;- rename_value(sl4.plot.data, mapping.file = rename.region)</code></pre>
-</details>
-</div>
-<div id="example-2" class="section level2 unnumbered">
-<h2 class="unnumbered">Example 2</h2>
-<details>
-<summary class="toggle-code-summary">
-Show/Hide
-</summary>
-<p><strong>Option 1:</strong> Create a mapping in an Excel file. Column
-names (<code>"OldName"</code>, <code>"NewName"</code>) and structure
-must match exactly as shown:</p>
-<div class="table-box">
-<table>
-<tr>
-<th>
-OldName
-</th>
-<th>
-NewName
-</th>
-</tr>
-<tr>
-<td>
-alloc_A1
-</td>
-<td>
-Alloc Eff.
-</td>
-</tr>
-<tr>
-<td>
-ENDWB1
-</td>
-<td>
-Endwb
-</td>
-</tr>
-<tr>
-<td>
-tech_C1
-</td>
-<td>
-Tech Chg.
-</td>
-</tr>
-<tr>
-<td>
-pop_D1
-</td>
-<td>
-Pop
-</td>
-</tr>
-<tr>
-<td>
-pref_G1
-</td>
-<td>
-Perf
-</td>
-</tr>
-<tr>
-<td>
-tot_E1
-</td>
-<td>
-ToT
-</td>
-</tr>
-<tr>
-<td>
-IS_F1
-</td>
-<td>
-I-S
-</td>
-</tr>
-</table>
-</div>
-<p>Then import it into R as follows:</p>
-<pre class="r"><code>library(readxl)
-# Your mapping file
-rename.welfare.comp &lt;- readxl::read_xlsx(&quot;C:/Your/Folder/RenameWelfareMapping.xlsx&quot;, sheet = &quot;Sheet1&quot;)
-
-har.plot.data_rename &lt;- rename_value(har.plot.data, 
-                                     column_name = &quot;COLUMN&quot;, # Specify the column containing values to rename
-                                     mapping.file = rename.welfare.comp)</code></pre>
-<p><br> <strong>Option 2:</strong> Create the mapping directly in an R
-script:</p>
-<pre class="r"><code># Rename Value if needed
-wefare.decomp.rename &lt;- data.frame(
-  ColumnName = &quot;COLUMN&quot;,
-  OldName = c(&quot;alloc_A1&quot;, &quot;ENDWB1&quot;, &quot;tech_C1&quot;, &quot;pop_D1&quot;, &quot;pref_G1&quot;, &quot;tot_E1&quot;, &quot;IS_F1&quot;),
-  NewName = c(&quot;Alloc Eff.&quot;, &quot;Endwb&quot;, &quot;Tech Chg.&quot;, &quot;Pop&quot;, &quot;Perf&quot;, &quot;ToT&quot;, &quot;I-S&quot;),
-  stringsAsFactors = FALSE
-)
-
-welfare_decomp &lt;- rename_value(har.plot.data, 
-                               mapping.file = wefare.decomp.rename)</code></pre>
-</details>
-</div>
-</div>
 <div id="missing-plot-outputs" class="section level1 unnumbered">
 <h1 class="unnumbered">Missing Plot Outputs</h1>
 <div id="solution-1-4" class="section level2 unnumbered">
@@ -952,13 +781,11 @@ the <code>"Unit"</code> column.</p></li>
 <li><p><code>adjustment</code>: The mathematical operation used to
 transform the values.<br />
 Accepts operators such as <code>/</code>, <code>*</code>,
-<code>+</code>, or <code>-</code>.</p></li>
+<code>+</code>, or <code>-</code>.</p>
+</div>
+</details>
+</details></li>
 </ul>
-</div>
-</details>
-</details>
-</div>
-</div>
 <div id="missing-unit-and-description"
 class="section level1 unnumbered">
 <h1 class="unnumbered">Missing Unit and Description</h1>
@@ -1089,6 +916,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 </script>
+</div>
+</div>
+</div>
 </div>
 </div>
 
